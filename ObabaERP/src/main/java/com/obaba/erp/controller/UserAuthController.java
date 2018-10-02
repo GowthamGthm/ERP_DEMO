@@ -29,7 +29,7 @@ public class UserAuthController {
 
 	@GetMapping(value = Constants.API_LOGIN)
 	public Object login(@RequestParam String userName, @RequestParam String password) throws JsonProcessingException {
-
+          // git test 
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		int id;
