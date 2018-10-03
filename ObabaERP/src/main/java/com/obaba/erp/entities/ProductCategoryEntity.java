@@ -8,34 +8,31 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import lombok.Data;
-
 @Entity
-@Table(name = "t_admin")
+@Table(name = "t_product_category")
 @Data
-public class UserAuth {
+public class ProductCategoryEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
-	public int id;
-
-	@Column(name = "username", unique = true)
-	public String userName;
-
-	@Column(name = "password")
-	public String password;
-
+	@Column(name = "category_id")
+	public int categoryID;
+	
+	@Column(name = "category_name" , unique=true)
+	public String categoryName;
+	
+	@Column(name = "category_desc")
+	public String categoryDescription;
+	
 	@CreatedDate
 	@Column(name = "create_date")
 	private Date createDate;
-
+	
 	@LastModifiedDate
 	@Column(name = "update_date")
 	private Date updateDate;
