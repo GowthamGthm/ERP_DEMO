@@ -1,7 +1,5 @@
 package com.obaba.erp.controller;
 
-import javax.validation.Validation;
-
 import org.apache.commons.validator.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,12 +18,17 @@ import com.google.common.base.Strings;
 import com.obaba.erp.entities.UserAuth;
 import com.obaba.erp.response.JsonResponse;
 import com.obaba.erp.serviceImpl.AuthServiceImpl;
+import com.obaba.erp.serviceImpl.ProductCategoryServiceImpl;
 import com.obaba.erp.utils.Constants;
 
 @RestController
 public class UserAuthController {
+	
 	@Autowired
 	AuthServiceImpl authService;
+	
+	@Autowired
+	ProductCategoryServiceImpl productCategoryService;
 
 	@GetMapping(value = Constants.API_LOGIN)
 	public Object login(@RequestParam String userName, @RequestParam String password) throws JsonProcessingException {
@@ -95,6 +98,27 @@ public class UserAuthController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("username already exist");
 		}
 		
+		
+	}
+	
+	
+	@GetMapping(value=Constants.API_GET_CATEGORY)
+	public Object getCategories() {
+		
+		
+		try {
+			
+			productCategoryService.getListOfCategories();
+			
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+		
+		}
+		
+		
+		return ResponseEntity.status(HttpStatus.OK).body(new JsonResponse(true, "login success"));
 		
 	}
 
