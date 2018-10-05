@@ -1,5 +1,7 @@
 package com.obaba.erp.controller;
 
+import java.util.List;
+
 import org.apache.commons.validator.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
+import com.obaba.erp.entities.TProductCategory;
 import com.obaba.erp.entities.UserAuth;
 import com.obaba.erp.response.JsonResponse;
 import com.obaba.erp.serviceImpl.AuthServiceImpl;
@@ -103,12 +106,13 @@ public class UserAuthController {
 	
 	
 	@GetMapping(value=Constants.API_GET_CATEGORY)
-	public Object getCategories() {
+	public Object getCategories() throws JsonProcessingException {
 		
+		List<TProductCategory> tProductCategories= null;
 		
 		try {
 			
-			productCategoryService.getListOfCategories();
+			tProductCategories=	productCategoryService.getListOfCategories();
 			
 			
 		}catch (Exception e) {
@@ -117,8 +121,10 @@ public class UserAuthController {
 		
 		}
 		
+		//ObjectMapper mapper = new ObjectMapper();
+		//String response = mapper.writeValueAsString(tProductCategories);
 		
-		return ResponseEntity.status(HttpStatus.OK).body(new JsonResponse(true, "login success"));
+		return ResponseEntity.status(HttpStatus.OK).body(tProductCategories);
 		
 	}
 

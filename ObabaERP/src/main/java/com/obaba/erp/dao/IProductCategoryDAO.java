@@ -2,9 +2,9 @@ package com.obaba.erp.dao;
 
 import java.util.List;
 
-import com.obaba.erp.entities.ProductCategoryEntity;
+import com.obaba.erp.entities.TProductCategory;
 
 public interface IProductCategoryDAO {
 
-	public List<ProductCategoryEntity> getProductCategory();
+	public List<TProductCategory> getProductCategory();
 }

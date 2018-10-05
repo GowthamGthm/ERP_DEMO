@@ -2,10 +2,10 @@ package com.obaba.erp.service;
 
 import java.util.List;
 
-import com.obaba.erp.entities.ProductCategoryEntity;
+import com.obaba.erp.entities.TProductCategory;
 
 public interface IProductCategoryService {
 	
-	public List<ProductCategoryEntity> getListOfCategories();
+	public List<TProductCategory> getListOfCategories();
 	
 }

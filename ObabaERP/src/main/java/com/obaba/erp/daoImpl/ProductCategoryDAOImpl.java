@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.obaba.erp.dao.IProductCategoryDAO;
-import com.obaba.erp.entities.ProductCategoryEntity;
+import com.obaba.erp.entities.TProductCategory;
 
 @Repository
 @Transactional
@@ -21,17 +21,17 @@ public class ProductCategoryDAOImpl implements IProductCategoryDAO {
 	
 
 	@Override
-	public List<ProductCategoryEntity> getProductCategory() {
+	public List<TProductCategory> getProductCategory() {
 		
 		Session session = null;
-		List<ProductCategoryEntity> productCategoryList = null;
+		List<TProductCategory> productCategoryList = null;
 		
 		try {
 			
 			session = sessionFactory.openSession();
 			session.beginTransaction();
 			
-			Criteria criteria = session.createCriteria(ProductCategoryEntity.class);
+			Criteria criteria = session.createCriteria(TProductCategory.class);
 			productCategoryList =  criteria.list();
 			
 			

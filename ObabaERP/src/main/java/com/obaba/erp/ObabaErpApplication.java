@@ -6,9 +6,6 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import com.obaba.erp.entities.ProductCategoryEntity;
-import com.obaba.erp.entities.ProductSubCategoryEntity;
-import com.obaba.erp.entities.ProductsEntity;
 import com.obaba.erp.entities.UserAuth;
 
 
@@ -17,7 +14,7 @@ import com.obaba.erp.entities.UserAuth;
 		 "com.obaba.erp.entities", "com.obaba.erp.service", "com.obaba.erp.serviceImpl" })
 @ComponentScan(basePackages = "com.obaba.erp")
 
-@EntityScan(basePackageClasses = { UserAuth.class , ProductCategoryEntity.class , ProductsEntity.class , ProductSubCategoryEntity.class})
+@EntityScan(basePackageClasses = { UserAuth.class })
 @EnableJpaRepositories("com.obaba.erp")
 public class ObabaErpApplication {
 
