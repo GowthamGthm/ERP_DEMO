@@ -20,6 +20,7 @@ public class ProductCategoryDAOImpl implements IProductCategoryDAO {
 	SessionFactory sessionFactory;
 	
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<TProductCategory> getProductCategory() {
 		
@@ -33,7 +34,6 @@ public class ProductCategoryDAOImpl implements IProductCategoryDAO {
 			
 			Criteria criteria = session.createCriteria(TProductCategory.class);
 			productCategoryList =  criteria.list();
-			
 			
 		}catch (Exception e) {
 			throw e ;
