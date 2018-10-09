@@ -3,6 +3,8 @@ package com.obaba.erp.controller;
 import java.util.List;
 
 import org.apache.commons.validator.EmailValidator;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -112,7 +114,7 @@ public class UserAuthController {
 	
 	
 	@GetMapping(value=Constants.API_GET_CATEGORY)
-	public Object getCategories() throws JsonProcessingException {
+	public Object getCategories() throws JsonProcessingException, JSONException {
 		
 		List<TProductCategory> tProductCategories= null;
 		
@@ -129,7 +131,10 @@ public class UserAuthController {
 		//ObjectMapper mapper = new ObjectMapper();
 		//String response = mapper.writeValueAsString(tProductCategories);
 		
-		return ResponseEntity.status(HttpStatus.OK).body(tProductCategories);
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("menuItems",tProductCategories );
+		
+		return ResponseEntity.status(HttpStatus.OK).body(jsonObject);
 		
 	}
 

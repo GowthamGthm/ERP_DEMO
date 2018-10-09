@@ -26,7 +26,7 @@ public class ProductCategoryServiceImpl implements IProductCategoryService {
 			//productsCategoryList =	productCategoryDAO.getProductCategory();
 			
 			productsCategoryList =	productCategoryDaoImpl.findAll();
-			List<TProductSubCategory> prods= productsCategoryList.get(0).getproductSubCategories();
+			List<TProductSubCategory> prods= productsCategoryList.get(0).getProductSubCategories();
 			System.out.println();
 			
 		} catch (Exception e) { 
