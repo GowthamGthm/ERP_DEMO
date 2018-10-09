@@ -1,5 +1,5 @@
 package com.obaba.erp.entities;
-// Generated 6 Oct, 2018 1:15:13 PM by Hibernate Tools 5.2.10.Final
+// Generated 7 Oct, 2018 12:45:47 AM by Hibernate Tools 5.2.10.Final
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -21,235 +21,179 @@ import javax.persistence.TemporalType;
 @Table(name = "t_products", catalog = "demo")
 public class TProducts implements java.io.Serializable {
 
-	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "product_id", unique = true, nullable = false)
 	private Integer productId;
-	
-	
-	@ManyToOne(fetch = FetchType.LAZY)
+
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "product_category_id", nullable = false)
-	private TProductCategory TProductCategory;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
+	private TProductSubCategory tProductSubCategoryByProductCategoryId;
+
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "product_sub_category_id", nullable = false)
-	private TProductSubCategory TProductSubCategory;
-	
+	private TProductSubCategory tProductSubCategoryByProductSubCategoryId;
+
 	@Column(name = "product_product_sku", length = 20)
 	private String productProductSku;
-	
 	@Column(name = "product_name", length = 100)
 	private String productName;
-	
 	@Column(name = "product_brand", length = 30)
 	private String productBrand;
-	
 	@Column(name = "product_color", length = 20)
 	private String productColor;
-	
 	@Column(name = "product_size", length = 50)
 	private String productSize;
-	
 	@Column(name = "product_price")
 	private Integer productPrice;
-	
 	@Column(name = "product_image", length = 100)
 	private String productImage;
-	
 	@Column(name = "product_quantity")
 	private Integer productQuantity;
-	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "create_date", length = 19)
 	private Date createDate;
-	
 	@Column(name = "created_by")
 	private Integer createdBy;
-	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "update_date", length = 19)
 	private Date updateDate;
-	
 	@Column(name = "updated_by")
 	private Integer updatedBy;
-	
 	@Column(name = "is_active", nullable = false)
 	private byte isActive;
-	
-
-	public TProducts() {
-	}
-
-	public TProducts(TProductCategory TProductCategory, TProductSubCategory TProductSubCategory, byte isActive) {
-		this.TProductCategory = TProductCategory;
-		this.TProductSubCategory = TProductSubCategory;
-		this.isActive = isActive;
-	}
-
-	public TProducts(TProductCategory TProductCategory, TProductSubCategory TProductSubCategory,
-			String productProductSku, String productName, String productBrand, String productColor, String productSize,
-			Integer productPrice, String productImage, Integer productQuantity, Date createDate, Integer createdBy,
-			Date updateDate, Integer updatedBy, byte isActive) {
-		this.TProductCategory = TProductCategory;
-		this.TProductSubCategory = TProductSubCategory;
-		this.productProductSku = productProductSku;
-		this.productName = productName;
-		this.productBrand = productBrand;
-		this.productColor = productColor;
-		this.productSize = productSize;
-		this.productPrice = productPrice;
-		this.productImage = productImage;
-		this.productQuantity = productQuantity;
-		this.createDate = createDate;
-		this.createdBy = createdBy;
-		this.updateDate = updateDate;
-		this.updatedBy = updatedBy;
-		this.isActive = isActive;
-	}
-
-	
 	public Integer getProductId() {
-		return this.productId;
+		return productId;
 	}
-
 	public void setProductId(Integer productId) {
 		this.productId = productId;
 	}
-
-	
-	public TProductCategory getTProductCategory() {
-		return this.TProductCategory;
+	public TProductSubCategory gettProductSubCategoryByProductCategoryId() {
+		return tProductSubCategoryByProductCategoryId;
 	}
-
-	public void setTProductCategory(TProductCategory TProductCategory) {
-		this.TProductCategory = TProductCategory;
+	public void settProductSubCategoryByProductCategoryId(TProductSubCategory tProductSubCategoryByProductCategoryId) {
+		this.tProductSubCategoryByProductCategoryId = tProductSubCategoryByProductCategoryId;
 	}
-
-	
-	public TProductSubCategory getTProductSubCategory() {
-		return this.TProductSubCategory;
+	public TProductSubCategory gettProductSubCategoryByProductSubCategoryId() {
+		return tProductSubCategoryByProductSubCategoryId;
 	}
-
-	public void setTProductSubCategory(TProductSubCategory TProductSubCategory) {
-		this.TProductSubCategory = TProductSubCategory;
+	public void settProductSubCategoryByProductSubCategoryId(
+			TProductSubCategory tProductSubCategoryByProductSubCategoryId) {
+		this.tProductSubCategoryByProductSubCategoryId = tProductSubCategoryByProductSubCategoryId;
 	}
-
-	
 	public String getProductProductSku() {
-		return this.productProductSku;
+		return productProductSku;
 	}
-
 	public void setProductProductSku(String productProductSku) {
 		this.productProductSku = productProductSku;
 	}
-
-	
 	public String getProductName() {
-		return this.productName;
+		return productName;
 	}
-
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
-
-	
 	public String getProductBrand() {
-		return this.productBrand;
+		return productBrand;
 	}
-
 	public void setProductBrand(String productBrand) {
 		this.productBrand = productBrand;
 	}
-
-	
 	public String getProductColor() {
-		return this.productColor;
+		return productColor;
 	}
-
 	public void setProductColor(String productColor) {
 		this.productColor = productColor;
 	}
-
-	
 	public String getProductSize() {
-		return this.productSize;
+		return productSize;
 	}
-
 	public void setProductSize(String productSize) {
 		this.productSize = productSize;
 	}
-
-	
 	public Integer getProductPrice() {
-		return this.productPrice;
+		return productPrice;
 	}
-
 	public void setProductPrice(Integer productPrice) {
 		this.productPrice = productPrice;
 	}
-
-	
 	public String getProductImage() {
-		return this.productImage;
+		return productImage;
 	}
-
 	public void setProductImage(String productImage) {
 		this.productImage = productImage;
 	}
-
-	
 	public Integer getProductQuantity() {
-		return this.productQuantity;
+		return productQuantity;
 	}
-
 	public void setProductQuantity(Integer productQuantity) {
 		this.productQuantity = productQuantity;
 	}
-
-	
 	public Date getCreateDate() {
-		return this.createDate;
+		return createDate;
 	}
-
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
-
-	
 	public Integer getCreatedBy() {
-		return this.createdBy;
+		return createdBy;
 	}
-
 	public void setCreatedBy(Integer createdBy) {
 		this.createdBy = createdBy;
 	}
-
-	
 	public Date getUpdateDate() {
-		return this.updateDate;
+		return updateDate;
 	}
-
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
-
-	
 	public Integer getUpdatedBy() {
-		return this.updatedBy;
+		return updatedBy;
 	}
-
 	public void setUpdatedBy(Integer updatedBy) {
 		this.updatedBy = updatedBy;
 	}
-
-	
 	public byte getIsActive() {
-		return this.isActive;
+		return isActive;
 	}
-
 	public void setIsActive(byte isActive) {
 		this.isActive = isActive;
 	}
-
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	public TProducts(Integer productId, TProductSubCategory tProductSubCategoryByProductCategoryId,
+			TProductSubCategory tProductSubCategoryByProductSubCategoryId, String productProductSku, String productName,
+			String productBrand, String productColor, String productSize, Integer productPrice, String productImage,
+			Integer productQuantity, Date createDate, Integer createdBy, Date updateDate, Integer updatedBy,
+			byte isActive) {
+		super();
+		this.productId = productId;
+		this.tProductSubCategoryByProductCategoryId = tProductSubCategoryByProductCategoryId;
+		this.tProductSubCategoryByProductSubCategoryId = tProductSubCategoryByProductSubCategoryId;
+		this.productProductSku = productProductSku;
+		this.productName = productName;
+		this.productBrand = productBrand;
+		this.productColor = productColor;
+		this.productSize = productSize;
+		this.productPrice = productPrice;
+		this.productImage = productImage;
+		this.productQuantity = productQuantity;
+		this.createDate = createDate;
+		this.createdBy = createdBy;
+		this.updateDate = updateDate;
+		this.updatedBy = updatedBy;
+		this.isActive = isActive;
+	}
+	public TProducts() {
+	}
+	
+	
+	
+	
 }

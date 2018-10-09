@@ -1,8 +1,10 @@
 package com.obaba.erp.entities;
-// Generated 6 Oct, 2018 1:15:13 PM by Hibernate Tools 5.2.10.Final
+// Generated 7 Oct, 2018 12:45:47 AM by Hibernate Tools 5.2.10.Final
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,62 +25,42 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "t_product_category", catalog = "demo", uniqueConstraints = @UniqueConstraint(columnNames = "category_name"))
 public class TProductCategory implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4663584067191895192L;
+	
+	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "category_id", unique = true, nullable = false)
 	private Integer categoryId;
-
+	
 	@Column(name = "category_name", unique = true, nullable = false)
 	private String categoryName;
-
+	
 	@Column(name = "category_desc")
 	private String categoryDesc;
-
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "create_date", length = 19)
 	private Date createDate;
-
+	
 	@Column(name = "created_by")
 	private Integer createdBy;
-
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "update_date", length = 19)
 	private Date updateDate;
-
+	
 	@Column(name = "updated_by")
 	private Integer updatedBy;
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "TProductCategory")
-	private Set<TProducts> TProductses = new HashSet<TProducts>(0);
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "TProductCategory")
-	private Set<TProductSubCategory> TProductSubCategories = new HashSet<TProductSubCategory>(0);
 	
-	
-	
-
-	public TProductCategory() {
-	}
-
-	public TProductCategory(String categoryName) {
-		this.categoryName = categoryName;
-	}
-
-	public TProductCategory(String categoryName, String categoryDesc, Date createDate, Integer createdBy,
-			Date updateDate, Integer updatedBy, Set<TProducts> TProductses,
-			Set<TProductSubCategory> TProductSubCategories) {
-		this.categoryName = categoryName;
-		this.categoryDesc = categoryDesc;
-		this.createDate = createDate;
-		this.createdBy = createdBy;
-		this.updateDate = updateDate;
-		this.updatedBy = updatedBy;
-		this.TProductses = TProductses;
-		this.TProductSubCategories = TProductSubCategories;
-	}
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "ProductCategory" )
+	private List<TProductSubCategory> productSubCategories ;
 
 	public Integer getCategoryId() {
-		return this.categoryId;
+		return categoryId;
 	}
 
 	public void setCategoryId(Integer categoryId) {
@@ -86,7 +68,7 @@ public class TProductCategory implements java.io.Serializable {
 	}
 
 	public String getCategoryName() {
-		return this.categoryName;
+		return categoryName;
 	}
 
 	public void setCategoryName(String categoryName) {
@@ -94,7 +76,7 @@ public class TProductCategory implements java.io.Serializable {
 	}
 
 	public String getCategoryDesc() {
-		return this.categoryDesc;
+		return categoryDesc;
 	}
 
 	public void setCategoryDesc(String categoryDesc) {
@@ -102,7 +84,7 @@ public class TProductCategory implements java.io.Serializable {
 	}
 
 	public Date getCreateDate() {
-		return this.createDate;
+		return createDate;
 	}
 
 	public void setCreateDate(Date createDate) {
@@ -110,7 +92,7 @@ public class TProductCategory implements java.io.Serializable {
 	}
 
 	public Integer getCreatedBy() {
-		return this.createdBy;
+		return createdBy;
 	}
 
 	public void setCreatedBy(Integer createdBy) {
@@ -118,7 +100,7 @@ public class TProductCategory implements java.io.Serializable {
 	}
 
 	public Date getUpdateDate() {
-		return this.updateDate;
+		return updateDate;
 	}
 
 	public void setUpdateDate(Date updateDate) {
@@ -126,27 +108,42 @@ public class TProductCategory implements java.io.Serializable {
 	}
 
 	public Integer getUpdatedBy() {
-		return this.updatedBy;
+		return updatedBy;
 	}
 
 	public void setUpdatedBy(Integer updatedBy) {
 		this.updatedBy = updatedBy;
 	}
 
-	public Set<TProducts> getTProductses() {
-		return this.TProductses;
+	public List<TProductSubCategory> getproductSubCategories() {
+		return productSubCategories;
 	}
 
-	public void setTProductses(Set<TProducts> TProductses) {
-		this.TProductses = TProductses;
+	public void setproductSubCategories(List<TProductSubCategory> productSubCategories) {
+		this.productSubCategories = productSubCategories;
 	}
 
-	public Set<TProductSubCategory> getTProductSubCategories() {
-		return this.TProductSubCategories;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
-	public void setTProductSubCategories(Set<TProductSubCategory> TProductSubCategories) {
-		this.TProductSubCategories = TProductSubCategories;
+	public TProductCategory(Integer categoryId, String categoryName, String categoryDesc, Date createDate,
+			Integer createdBy, Date updateDate, Integer updatedBy, List<TProductSubCategory> productSubCategories) {
+		super();
+		this.categoryId = categoryId;
+		this.categoryName = categoryName;
+		this.categoryDesc = categoryDesc;
+		this.createDate = createDate;
+		this.createdBy = createdBy;
+		this.updateDate = updateDate;
+		this.updatedBy = updatedBy;
+		this.productSubCategories = productSubCategories;
 	}
 
+	public TProductCategory() {
+		
+	}
+
+	
+	
 }

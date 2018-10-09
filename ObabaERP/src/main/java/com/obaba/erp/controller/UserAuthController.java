@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.obaba.erp.entities.TProductCategory;
@@ -72,6 +75,9 @@ public class UserAuthController {
 
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		mapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
+		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS , false);
+
 		int id;
 
 		UserAuth userAuth = null;
@@ -113,7 +119,6 @@ public class UserAuthController {
 		try {
 			
 			tProductCategories=	productCategoryService.getListOfCategories();
-			
 			
 		}catch (Exception e) {
 			e.printStackTrace();
