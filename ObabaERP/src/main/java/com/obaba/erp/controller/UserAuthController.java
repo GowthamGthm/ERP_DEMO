@@ -117,7 +117,7 @@ public class UserAuthController {
 	@GetMapping(value = Constants.API_GET_CATEGORY)
 	public Object getCategories() throws JSONException {
 
-		Set<TProductCategory> tProductCategories = null;
+		List<TProductCategory> tProductCategories = null;
 
 		try {
 			tProductCategories = productCategoryService.getListOfCategories();

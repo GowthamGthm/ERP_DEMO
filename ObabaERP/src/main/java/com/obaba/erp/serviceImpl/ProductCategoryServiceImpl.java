@@ -1,7 +1,6 @@
 package com.obaba.erp.serviceImpl;
 
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,14 +18,14 @@ public class ProductCategoryServiceImpl implements IProductCategoryService {
 	IProductCategoryDAO productCategoryDaoImpl ;
 
 	@Override
-	public Set<TProductCategory> getListOfCategories() {
-		Set<TProductCategory> productsCategoryList = null;
+	public List<TProductCategory> getListOfCategories() {
+		List<TProductCategory> productsCategoryList = null;
 		try {
 
 			productsCategoryList =	productCategoryDaoImpl.getProductCategory();
 			
 			//productsCategoryList =	productCategoryDaoImpl.findAll();
-			//Set<TProductSubCategory> prods= productsCategoryList.get(0).getProductSubCategories();
+		//	List<TProductSubCategory> prods= productsCategoryList.get(0).getProductSubCategories();
 			System.out.println();
 			
 		} catch (Exception e) { 

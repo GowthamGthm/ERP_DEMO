@@ -8,6 +8,8 @@ import java.util.Set;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -29,7 +31,7 @@ public class ProductCategoryDAOImpl implements IProductCategoryDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Set<TProductCategory> getProductCategory() {
+	public List<TProductCategory> getProductCategory() {
 		
 		Session session = null;
 		List<TProductCategory> productCategoryList = null;
@@ -39,7 +41,8 @@ public class ProductCategoryDAOImpl implements IProductCategoryDAO {
 			session = sessionFactory.openSession();
 			session.beginTransaction();
 			
-			Criteria criteria = session.createCriteria(TProductCategory.class);
+			Criteria criteria = session.createCriteria(TProductCategory.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+					// .setProjection(Projections.distinct(Projections.property("categoryId")));
 			productCategoryList = criteria.list();
 			
 		}catch (Exception e) {
@@ -47,7 +50,7 @@ public class ProductCategoryDAOImpl implements IProductCategoryDAO {
 		}finally {
 			session.close();
 		}
-		return new LinkedHashSet<TProductCategory>(productCategoryList);
+		return productCategoryList;
 	}
 
 }

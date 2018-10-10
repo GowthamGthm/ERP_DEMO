@@ -7,6 +7,6 @@ import com.obaba.erp.entities.TProductCategory;
 
 public interface IProductCategoryService {
 	
-	public Set<TProductCategory> getListOfCategories();
+	public List<TProductCategory> getListOfCategories();
 	
 }
