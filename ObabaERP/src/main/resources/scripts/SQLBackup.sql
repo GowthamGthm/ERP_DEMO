@@ -35,8 +35,8 @@ INSERT INTO `hibernate_sequence` (`next_val`) VALUES
 
 CREATE TABLE IF NOT EXISTS `t_products` (
   `product_id` int(11) NOT NULL AUTO_INCREMENT,
-  `product_category_id` int(11) NOT NULL,
-  `product_sub_category_id` int(11) NOT NULL,
+  `product_category_id` int(11) DEFAULT NULL,
+  `product_sub_category_id` int(11) DEFAULT NULL,
   `product_product_sku` varchar(20) DEFAULT NULL,
   `product_name` varchar(100) DEFAULT NULL,
   `product_brand` varchar(30) DEFAULT NULL,
@@ -49,23 +49,26 @@ CREATE TABLE IF NOT EXISTS `t_products` (
   `created_by` int(11) DEFAULT '0',
   `update_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_by` int(11) DEFAULT '0',
-  `is_active` tinyint(4) NOT NULL DEFAULT '1',
+  `is_active` char(1) NOT NULL DEFAULT 'Y',
+  `is_home` char(1) NOT NULL DEFAULT 'N',
   PRIMARY KEY (`product_id`),
-  KEY `p_c_id` (`product_category_id`),
   KEY `FK_t_products_t_product_sub_category` (`product_sub_category_id`),
+  KEY `p_c_id` (`product_category_id`),
   CONSTRAINT `FK_t_products_t_product_sub_category` FOREIGN KEY (`product_sub_category_id`) REFERENCES `t_product_sub_category` (`sub_category_id`),
   CONSTRAINT `p_c_id` FOREIGN KEY (`product_category_id`) REFERENCES `t_product_category` (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 /*!40000 ALTER TABLE `t_products` DISABLE KEYS */;
-INSERT INTO `t_products` (`product_id`, `product_category_id`, `product_sub_category_id`, `product_product_sku`, `product_name`, `product_brand`, `product_color`, `product_size`, `product_price`, `product_image`, `product_quantity`, `create_date`, `created_by`, `update_date`, `updated_by`, `is_active`) VALUES
-	(1, 1, 1, 'FRD00F1', 'Sangria Collar 3/4Th Sleeves Embroidered Flared Anarkali', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 0),
-	(2, 2, 2, 'FRD00F3', 'Aurelia Navy Blue Printed Cotton Kurta', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 0),
-	(3, 2, 3, 'RO100', 'Biba White Printed Viscose Kurta', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 0),
-	(4, 3, 4, 'HND0E1', 'Aurelia Yellow Printed Cotton Kurta', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 0),
-	(5, 4, 5, 'MST0G1', 'Biba Blue Printed Kurta', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 0),
-	(6, 5, 6, 'NS0A1', 'Aurelia Navy Blue Printed Cotton Kurta', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 0),
-	(7, 3, 1, 'NS2S1', 'Sangria Round Neck 3/4Th Sleeves Anarkali', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 0);
+INSERT INTO `t_products` (`product_id`, `product_category_id`, `product_sub_category_id`, `product_product_sku`, `product_name`, `product_brand`, `product_color`, `product_size`, `product_price`, `product_image`, `product_quantity`, `create_date`, `created_by`, `update_date`, `updated_by`, `is_active`, `is_home`) VALUES
+	(1, 1, 1, 'FRD00F1', 'Sangria Collar 3/4Th Sleeves Embroidered Flared Anarkali', NULL, NULL, NULL, 1000, 'dummyURL', 10, '2018-10-10 15:45:01', 0, '2018-10-10 15:46:40', 0, 'Y', 'N'),
+	(2, 2, 2, 'FRD00F3', 'Aurelia Navy Blue Printed Cotton Kurta', NULL, NULL, NULL, 2000, 'dummyURL', 20, '2018-10-10 15:45:00', 0, '2018-10-10 15:46:41', 0, 'Y', 'N'),
+	(3, 2, 3, 'RO100', 'Biba White Printed Viscose Kurta', NULL, NULL, NULL, 3000, 'dummyURL', 30, '2018-10-10 15:44:59', 0, '2018-10-10 15:46:43', 0, 'Y', 'N'),
+	(4, 3, 4, 'HND0E1', 'Aurelia Yellow Printed Cotton Kurta', NULL, NULL, NULL, 4000, 'dummyURL', 40, '2018-10-10 15:44:58', 0, '2018-10-10 15:46:45', 0, 'Y', 'N'),
+	(5, 4, 5, 'MST0G1', 'Biba Blue Printed Kurta', NULL, NULL, NULL, 5000, 'dummyURL', 45, '2018-10-10 15:44:56', 0, '2018-10-10 15:46:47', 0, 'Y', 'N'),
+	(6, 5, 6, 'NS0A1', 'Aurelia Navy Blue Printed Cotton Kurta', NULL, NULL, NULL, 6000, 'dummyURL', 15, '2018-10-10 15:44:55', 0, '2018-10-10 15:46:49', 0, 'Y', 'N'),
+	(7, 3, 1, 'NS2S1', 'Sangria Round Neck 3/4Th Sleeves Anarkali', NULL, NULL, NULL, 7000, 'dummyURL', 20, '2018-10-10 15:44:54', 0, '2018-10-10 15:46:50', 0, 'Y', 'N'),
+	(11, NULL, NULL, 'Home001', 'Home Product 1', NULL, NULL, NULL, 5000, 'dummyURL', 100, '2018-10-10 15:44:23', 0, '2018-10-10 15:47:03', 0, 'Y', 'Y'),
+	(12, NULL, NULL, 'Home002', 'Home Product 2 ', NULL, NULL, NULL, 7000, 'dummyURL', 50, '2018-10-10 15:48:16', 0, '2018-10-10 15:48:36', 0, 'Y', 'Y');
 /*!40000 ALTER TABLE `t_products` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `t_product_category` (
@@ -78,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `t_product_category` (
   `updated_by` int(11) DEFAULT '0',
   PRIMARY KEY (`category_id`),
   UNIQUE KEY `UK_tod8mswk49xbq0klxxxgivgpg` (`category_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 /*!40000 ALTER TABLE `t_product_category` DISABLE KEYS */;
 INSERT INTO `t_product_category` (`category_id`, `category_name`, `category_desc`, `create_date`, `created_by`, `update_date`, `updated_by`) VALUES
@@ -87,7 +90,8 @@ INSERT INTO `t_product_category` (`category_id`, `category_name`, `category_desc
 	(3, 'Study Tables', NULL, '2018-10-03 18:55:57', 0, '2018-10-03 18:56:03', 1),
 	(4, 'Kids Beds', NULL, '2018-10-03 18:56:17', 0, '2018-10-03 18:56:21', 1),
 	(5, 'Tables', NULL, '2018-10-03 18:56:37', 0, '2018-10-03 18:56:42', 1),
-	(6, 'Dining Table', NULL, '2018-10-03 18:56:54', 0, '2018-10-03 18:56:58', 1);
+	(6, 'Dining Table', NULL, '2018-10-03 18:56:54', 0, '2018-10-03 18:56:58', 1),
+	(7, 'Home Page Products', NULL, '2018-10-10 00:57:40', 0, '2018-10-10 00:57:40', 0);
 /*!40000 ALTER TABLE `t_product_category` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `t_product_sub_category` (

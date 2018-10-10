@@ -1,11 +1,6 @@
 package com.obaba.erp.controller;
 
-import java.util.List;
-import java.util.Set;
-
 import org.apache.commons.validator.EmailValidator;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,18 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.obaba.erp.entities.TProductCategory;
 import com.obaba.erp.entities.UserAuth;
 import com.obaba.erp.response.JsonResponse;
 import com.obaba.erp.serviceImpl.AuthServiceImpl;
-import com.obaba.erp.serviceImpl.ProductCategoryServiceImpl;
 import com.obaba.erp.utils.Constants;
 
 @Controller
@@ -33,9 +23,6 @@ public class UserAuthController {
 
 	@Autowired
 	AuthServiceImpl authService;
-
-	@Autowired
-	ProductCategoryServiceImpl productCategoryService;
 
 	@GetMapping(value = Constants.API_LOGIN)
 	public Object login(@RequestParam String userName, @RequestParam String password)  {
@@ -72,13 +59,6 @@ public class UserAuthController {
 	@PostMapping(value = Constants.API_REGISTER)
 	public Object register(@RequestBody String input) {
 
-		/*
-		 * ObjectMapper mapper = new ObjectMapper();
-		 * mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		 * mapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
-		 * mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS , false);
-		 */
-
 		Gson gson = new Gson();
 
 		int id;
@@ -110,27 +90,9 @@ public class UserAuthController {
 		} else {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("username already exist");
 		}
-
 	}
 
-	@ResponseBody
-	@GetMapping(value = Constants.API_GET_CATEGORY)
-	public Object getCategories() throws JSONException {
-
-		List<TProductCategory> tProductCategories = null;
-
-		try {
-			tProductCategories = productCategoryService.getListOfCategories();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-		}
-		
-		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
-		String result =  gson.toJson(tProductCategories);
-		
-		return ResponseEntity.status(HttpStatus.OK).body(result);
-	}
+	
 
 	@GetMapping("/test")
 	public String test() {
