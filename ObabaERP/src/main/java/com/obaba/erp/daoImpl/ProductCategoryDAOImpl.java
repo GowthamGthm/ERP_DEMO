@@ -1,6 +1,9 @@
 package com.obaba.erp.daoImpl;
 
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -17,15 +20,16 @@ import com.obaba.erp.entities.TProductCategory;
 @Transactional
 /*public class ProductCategoryDAOImpl implements IProductCategoryDAO {*/
 	
-public interface ProductCategoryDAOImpl extends JpaRepository<TProductCategory, Integer> {
+//public interface ProductCategoryDAOImpl extends JpaRepository<TProductCategory, Integer> {
 
-	/*@Autowired
+public class ProductCategoryDAOImpl implements IProductCategoryDAO {
+	@Autowired
 	SessionFactory sessionFactory;
 	
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<TProductCategory> getProductCategory() {
+	public Set<TProductCategory> getProductCategory() {
 		
 		Session session = null;
 		List<TProductCategory> productCategoryList = null;
@@ -35,17 +39,15 @@ public interface ProductCategoryDAOImpl extends JpaRepository<TProductCategory, 
 			session = sessionFactory.openSession();
 			session.beginTransaction();
 			
-			//Hibernate.initialize(TProductCategory.getTProductSubCategories);
-			
 			Criteria criteria = session.createCriteria(TProductCategory.class);
-			productCategoryList =  criteria.list();
+			productCategoryList = criteria.list();
 			
 		}catch (Exception e) {
 			throw e ;
 		}finally {
-			//session.close();
+			session.close();
 		}
-		return productCategoryList;
-	}*/
+		return new LinkedHashSet<TProductCategory>(productCategoryList);
+	}
 
 }

@@ -1,10 +1,10 @@
 package com.obaba.erp.dao;
 
-import java.util.List;
+import java.util.Set;
 
 import com.obaba.erp.entities.TProductCategory;
 
 public interface IProductCategoryDAO {
 
-	public List<TProductCategory> getProductCategory();
+	public Set<TProductCategory> getProductCategory();
 }

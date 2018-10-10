@@ -1,6 +1,7 @@
 package com.obaba.erp.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.validator.EmailValidator;
 import org.json.JSONException;
@@ -116,7 +117,7 @@ public class UserAuthController {
 	@GetMapping(value = Constants.API_GET_CATEGORY)
 	public Object getCategories() throws JSONException {
 
-		List<TProductCategory> tProductCategories = null;
+		Set<TProductCategory> tProductCategories = null;
 
 		try {
 			tProductCategories = productCategoryService.getListOfCategories();

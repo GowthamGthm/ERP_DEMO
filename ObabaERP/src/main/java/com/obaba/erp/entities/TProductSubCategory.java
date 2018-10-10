@@ -33,7 +33,7 @@ public class TProductSubCategory implements java.io.Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "sub_category_id", unique = true, nullable = false)
+	@Column(name = "sub_category_id", nullable = true)
 	@Expose
 	private Integer subCategoryId;
 	
@@ -41,7 +41,7 @@ public class TProductSubCategory implements java.io.Serializable {
 	@JoinColumn(name = "category_id", nullable = false)
 	private TProductCategory productCategory;*/
 	
-	@Column(name = "category_id", unique = true, nullable = false)
+	@Column(name = "category_id" ,  nullable = true)
 	@Expose
 	private Integer categoryID;
 	
