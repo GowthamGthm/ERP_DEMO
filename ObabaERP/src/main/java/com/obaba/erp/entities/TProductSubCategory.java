@@ -1,26 +1,20 @@
 package com.obaba.erp.entities;
 // Generated 7 Oct, 2018 12:45:47 AM by Hibernate Tools 5.2.10.Final
 
-import java.util.ArrayList;
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.annotations.Expose;
 
 import lombok.Data;
 
@@ -40,6 +34,7 @@ public class TProductSubCategory implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "sub_category_id", unique = true, nullable = false)
+	@Expose
 	private Integer subCategoryId;
 	
 	/*@ManyToOne(fetch = FetchType.LAZY)
@@ -47,32 +42,36 @@ public class TProductSubCategory implements java.io.Serializable {
 	private TProductCategory productCategory;*/
 	
 	@Column(name = "category_id", unique = true, nullable = false)
+	@Expose
 	private Integer categoryID;
 	
+	@Expose
 	@Column(name = "sub_category_name", unique = true, nullable = false)
 	private String subCategoryName;
 	
+	@Expose
 	@Column(name = "sub_category_desc")
 	private String subCategoryDesc;
 	
+	@Expose
 	@Column(name = "image_url")
 	private String imageUrl;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "create_date", length = 19)
 	private Date createDate;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@Column(name = "created_by")
 	private String createdBy;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "update_date", length = 19)
 	private Date updateDate;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@Column(name = "updated_by")
 	private String updatedBy;
 	
@@ -82,120 +81,6 @@ public class TProductSubCategory implements java.io.Serializable {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "tProductSubCategoryByProductSubCategoryId")
 	private List<TProducts> TProductsesSubCategoryId ;*/
 
-	/*public Integer getSubCategoryId() {
-		return subCategoryId;
-	}
-
-	public void setSubCategoryId(Integer subCategoryId) {
-		this.subCategoryId = subCategoryId;
-	}
-
-	public TProductCategory getProductCategory() {
-		return ProductCategory;
-	}
-
-	public void setProductCategory(TProductCategory productCategory) {
-		ProductCategory = productCategory;
-	}
-
-	public String getSubCategoryName() {
-		return subCategoryName;
-	}
-
-	public void setSubCategoryName(String subCategoryName) {
-		this.subCategoryName = subCategoryName;
-	}
-
-	public String getSubCategoryDesc() {
-		return subCategoryDesc;
-	}
-
-	public void setSubCategoryDesc(String subCategoryDesc) {
-		this.subCategoryDesc = subCategoryDesc;
-	}
-
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
-
-	public Date getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
-
-	public String getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	public Date getUpdateDate() {
-		return updateDate;
-	}
-
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
-	}
-
-	public String getUpdatedBy() {
-		return updatedBy;
-	}
-
-	public void setUpdatedBy(String updatedBy) {
-		this.updatedBy = updatedBy;
-	}
-
-	public List<TProducts> getTProductsesCategoryId() {
-		return TProductsesCategoryId;
-	}
-
-	public void setTProductsesCategoryId(List<TProducts> tProductsesCategoryId) {
-		TProductsesCategoryId = tProductsesCategoryId;
-	}
-
-	public List<TProducts> getTProductsesSubCategoryId() {
-		return TProductsesSubCategoryId;
-	}
-
-	public void setTProductsesSubCategoryId(List<TProducts> tProductsesSubCategoryId) {
-		TProductsesSubCategoryId = tProductsesSubCategoryId;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	public TProductSubCategory(Integer subCategoryId, TProductCategory productCategory, String subCategoryName,
-			String subCategoryDesc, String imageUrl, Date createDate, String createdBy, Date updateDate,
-			String updatedBy, List<TProducts> tProductsesCategoryId, List<TProducts> tProductsesSubCategoryId) {
-		super();
-		this.subCategoryId = subCategoryId;
-		ProductCategory = productCategory;
-		this.subCategoryName = subCategoryName;
-		this.subCategoryDesc = subCategoryDesc;
-		this.imageUrl = imageUrl;
-		this.createDate = createDate;
-		this.createdBy = createdBy;
-		this.updateDate = updateDate;
-		this.updatedBy = updatedBy;
-		TProductsesCategoryId = tProductsesCategoryId;
-		TProductsesSubCategoryId = tProductsesSubCategoryId;
-	}
-
-	public TProductSubCategory() {
-	}
-*/
-	
-	
 	
 	
 }

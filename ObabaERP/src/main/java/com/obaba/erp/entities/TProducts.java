@@ -1,20 +1,19 @@
 package com.obaba.erp.entities;
 // Generated 7 Oct, 2018 12:45:47 AM by Hibernate Tools 5.2.10.Final
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.annotations.Expose;
 
 import lombok.Data;
 
@@ -34,6 +33,7 @@ public class TProducts implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "product_id", unique = true, nullable = false)
+	@Expose
 	private Integer productId;
 
 	/*@ManyToOne(fetch = FetchType.EAGER)
@@ -44,217 +44,70 @@ public class TProducts implements java.io.Serializable {
 	@JoinColumn(name = "product_sub_category_id", nullable = false)
 	private TProductSubCategory tProductSubCategoryByProductSubCategoryId;*/
 	
-	@Column(name = "product_category_id", nullable = false)
+	@Column(name = "product_category_id", nullable = true)
+	@Expose
 	private Integer productcategoryID;
 	
-	@Column(name = "product_sub_category_id" , nullable = false)
+	@Column(name = "product_sub_category_id" , nullable = true)
+	@Expose
 	private Integer productSubCategoryID;
 	
-
 	@Column(name = "product_product_sku", length = 20)
+	@Expose
 	private String productProductSku;
 	
 	@Column(name = "product_name", length = 100)
+	@Expose
 	private String productName;
 	
 	@Column(name = "product_brand", length = 30)
+	@Expose
 	private String productBrand;
 	
 	@Column(name = "product_color", length = 20)
+	@Expose
 	private String productColor;
 	
 	@Column(name = "product_size", length = 50)
+	@Expose
 	private String productSize;
 	
 	@Column(name = "product_price")
+	@Expose
 	private Integer productPrice;
 	
 	@Column(name = "product_image", length = 100)
+	@Expose
 	private String productImage;
 	
 	@Column(name = "product_quantity")
+	@Expose
 	private Integer productQuantity;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "create_date", length = 19)
 	private Date createDate;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@Column(name = "created_by")
 	private Integer createdBy;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "update_date", length = 19)
 	private Date updateDate;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@Column(name = "updated_by")
 	private Integer updatedBy;
 	
+	@Expose
+	@Column(name = "is_active", nullable = true)
+	private char isActive;
 	
-	@Column(name = "is_active", nullable = false)
-	private byte isActive;
-
-	/*public Integer getProductId() {
-		return productId;
-	}
-
-	public void setProductId(Integer productId) {
-		this.productId = productId;
-	}
-
-	public TProductSubCategory gettProductSubCategoryByProductCategoryId() {
-		return tProductSubCategoryByProductCategoryId;
-	}
-
-	public void settProductSubCategoryByProductCategoryId(TProductSubCategory tProductSubCategoryByProductCategoryId) {
-		this.tProductSubCategoryByProductCategoryId = tProductSubCategoryByProductCategoryId;
-	}
-
-	public TProductSubCategory gettProductSubCategoryByProductSubCategoryId() {
-		return tProductSubCategoryByProductSubCategoryId;
-	}
-
-	public void settProductSubCategoryByProductSubCategoryId(
-			TProductSubCategory tProductSubCategoryByProductSubCategoryId) {
-		this.tProductSubCategoryByProductSubCategoryId = tProductSubCategoryByProductSubCategoryId;
-	}
-
-	public String getProductProductSku() {
-		return productProductSku;
-	}
-
-	public void setProductProductSku(String productProductSku) {
-		this.productProductSku = productProductSku;
-	}
-
-	public String getProductName() {
-		return productName;
-	}
-
-	public void setProductName(String productName) {
-		this.productName = productName;
-	}
-
-	public String getProductBrand() {
-		return productBrand;
-	}
-
-	public void setProductBrand(String productBrand) {
-		this.productBrand = productBrand;
-	}
-
-	public String getProductColor() {
-		return productColor;
-	}
-
-	public void setProductColor(String productColor) {
-		this.productColor = productColor;
-	}
-
-	public String getProductSize() {
-		return productSize;
-	}
-
-	public void setProductSize(String productSize) {
-		this.productSize = productSize;
-	}
-
-	public Integer getProductPrice() {
-		return productPrice;
-	}
-
-	public void setProductPrice(Integer productPrice) {
-		this.productPrice = productPrice;
-	}
-
-	public String getProductImage() {
-		return productImage;
-	}
-
-	public void setProductImage(String productImage) {
-		this.productImage = productImage;
-	}
-
-	public Integer getProductQuantity() {
-		return productQuantity;
-	}
-
-	public void setProductQuantity(Integer productQuantity) {
-		this.productQuantity = productQuantity;
-	}
-
-	public Date getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
-
-	public Integer getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(Integer createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	public Date getUpdateDate() {
-		return updateDate;
-	}
-
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
-	}
-
-	public Integer getUpdatedBy() {
-		return updatedBy;
-	}
-
-	public void setUpdatedBy(Integer updatedBy) {
-		this.updatedBy = updatedBy;
-	}
-
-	public byte getIsActive() {
-		return isActive;
-	}
-
-	public void setIsActive(byte isActive) {
-		this.isActive = isActive;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	public TProducts(Integer productId, TProductSubCategory tProductSubCategoryByProductCategoryId,
-			TProductSubCategory tProductSubCategoryByProductSubCategoryId, String productProductSku, String productName,
-			String productBrand, String productColor, String productSize, Integer productPrice, String productImage,
-			Integer productQuantity, Date createDate, Integer createdBy, Date updateDate, Integer updatedBy,
-			byte isActive) {
-		super();
-		this.productId = productId;
-		this.tProductSubCategoryByProductCategoryId = tProductSubCategoryByProductCategoryId;
-		this.tProductSubCategoryByProductSubCategoryId = tProductSubCategoryByProductSubCategoryId;
-		this.productProductSku = productProductSku;
-		this.productName = productName;
-		this.productBrand = productBrand;
-		this.productColor = productColor;
-		this.productSize = productSize;
-		this.productPrice = productPrice;
-		this.productImage = productImage;
-		this.productQuantity = productQuantity;
-		this.createDate = createDate;
-		this.createdBy = createdBy;
-		this.updateDate = updateDate;
-		this.updatedBy = updatedBy;
-		this.isActive = isActive;
-	}
-
-	public TProducts() {
-	}*/
+	@Expose
+	@Column(name = "is_home", nullable = true )
+	private char isHome;
 
 }

@@ -1,18 +1,15 @@
 package com.obaba.erp.entities;
 // Generated 7 Oct, 2018 12:45:47 AM by Hibernate Tools 5.2.10.Final
 
-import java.util.ArrayList;
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -21,7 +18,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.annotations.Expose;
 
 import lombok.Data;
 
@@ -42,31 +39,33 @@ public class TProductCategory implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "category_id", unique = true, nullable = false)
+	@Expose
 	private Integer categoryId;
 	
+	@Expose
 	@Column(name = "category_name", unique = true, nullable = false)
 	private String categoryName;
 	
-	
+	@Expose
 	@Column(name = "category_desc")
 	private String categoryDesc;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "create_date", length = 19)
 	private Date createDate;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@Column(name = "created_by")
 	private Integer createdBy;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "update_date", length = 19)
 	private Date updateDate;
 	
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@Column(name = "updated_by")
 	private Integer updatedBy;
 	
@@ -74,6 +73,7 @@ public class TProductCategory implements java.io.Serializable {
 	private List<TProductSubCategory> productSubCategories ;
 	*/
 	
+	@Expose
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "category_id", referencedColumnName = "category_id" )
 	private List<TProductSubCategory> productSubCategories ;

@@ -8,20 +8,18 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.obaba.erp.entities.TProductCategory;
 import com.obaba.erp.entities.UserAuth;
 import com.obaba.erp.response.JsonResponse;
@@ -29,20 +27,18 @@ import com.obaba.erp.serviceImpl.AuthServiceImpl;
 import com.obaba.erp.serviceImpl.ProductCategoryServiceImpl;
 import com.obaba.erp.utils.Constants;
 
-@RestController
+@Controller
 public class UserAuthController {
-	
+
 	@Autowired
 	AuthServiceImpl authService;
-	
+
 	@Autowired
 	ProductCategoryServiceImpl productCategoryService;
 
 	@GetMapping(value = Constants.API_LOGIN)
-	public Object login(@RequestParam String userName, @RequestParam String password) throws JsonProcessingException {
-          // git test 
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+	public Object login(@RequestParam String userName, @RequestParam String password)  {
+
 		int id;
 
 		UserAuth userAuth = new UserAuth();
@@ -75,27 +71,32 @@ public class UserAuthController {
 	@PostMapping(value = Constants.API_REGISTER)
 	public Object register(@RequestBody String input) {
 
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		mapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
-		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS , false);
+		/*
+		 * ObjectMapper mapper = new ObjectMapper();
+		 * mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		 * mapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
+		 * mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS , false);
+		 */
+
+		Gson gson = new Gson();
 
 		int id;
 
 		UserAuth userAuth = null;
 		try {
 			Preconditions.checkArgument(!Strings.isNullOrEmpty(input), "empty body");
-			userAuth = mapper.readValue(input, UserAuth.class);
-			
+			userAuth = gson.fromJson(input, UserAuth.class);
+
 			Preconditions.checkArgument(!Strings.isNullOrEmpty(userAuth.userName), "empty UserName");
 			Preconditions.checkArgument(!Strings.isNullOrEmpty(userAuth.password), "empty password");
-			
+
 			boolean validEmail = EmailValidator.getInstance().isValid(userAuth.userName);
-			
-			if(!validEmail) throw new IllegalArgumentException("invalid email");
+
+			if (!validEmail)
+				throw new IllegalArgumentException("invalid email");
 
 			id = authService.insertUser(userAuth);
-			
+
 		} catch (IllegalArgumentException ex) {
 			ex.printStackTrace();
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
@@ -108,34 +109,26 @@ public class UserAuthController {
 		} else {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("username already exist");
 		}
-		
-		
+
 	}
-	
-	
-	@GetMapping(value=Constants.API_GET_CATEGORY)
-	public Object getCategories() throws JsonProcessingException, JSONException {
-		
-		List<TProductCategory> tProductCategories= null;
-		
+
+	@ResponseBody
+	@GetMapping(value = Constants.API_GET_CATEGORY)
+	public Object getCategories() throws JSONException {
+
+		List<TProductCategory> tProductCategories = null;
+
 		try {
-			
-			tProductCategories=	productCategoryService.getListOfCategories();
-			
-		}catch (Exception e) {
+			tProductCategories = productCategoryService.getListOfCategories();
+		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-		
 		}
 		
-		//ObjectMapper mapper = new ObjectMapper();
-		//String response = mapper.writeValueAsString(tProductCategories);
+		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
+		String result =  gson.toJson(tProductCategories);
 		
-		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("menuItems",tProductCategories );
-		
-		return ResponseEntity.status(HttpStatus.OK).body(jsonObject);
-		
+		return ResponseEntity.status(HttpStatus.OK).body(result);
 	}
 
 	@GetMapping("/test")
