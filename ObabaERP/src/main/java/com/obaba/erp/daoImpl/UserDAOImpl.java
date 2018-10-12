@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.obaba.erp.dao.IUserDAO;
-import com.obaba.erp.entities.UserAuth;
+import com.obaba.erp.entities.TUser;
 
 @Repository
 @Transactional
@@ -19,7 +19,7 @@ public class UserDAOImpl implements IUserDAO {
 	SessionFactory sessionFactory;
 
 	@Override
-	public int insertUser(UserAuth userAuth) {
+	public int insertUser(TUser userAuth) {
 
 		Session session = null;
 		Integer id = 0;
@@ -28,9 +28,9 @@ public class UserDAOImpl implements IUserDAO {
 			session = sessionFactory.openSession();
 			session.beginTransaction();
 
-			Criteria criteria = session.createCriteria(UserAuth.class);
+			Criteria criteria = session.createCriteria(TUser.class);
 			criteria.add(Restrictions.eq("userName", userAuth.getUserName()));
-			UserAuth auth = (UserAuth) criteria.uniqueResult();
+			TUser auth = (TUser) criteria.uniqueResult();
 
 			if (auth == null) {
 				id = (Integer) session.save(userAuth);
@@ -50,21 +50,21 @@ public class UserDAOImpl implements IUserDAO {
 	}
 
 	@Override
-	public UserAuth checkAuth(UserAuth userAuth) {
+	public TUser checkAuth(TUser userAuth) {
 
 		Session session = null;
 
-		UserAuth user = null;
+		TUser user = null;
 		try {
 
 			session = sessionFactory.openSession();
 			session.beginTransaction();
 
-			Criteria criteria = session.createCriteria(UserAuth.class);
+			Criteria criteria = session.createCriteria(TUser.class);
 			criteria.add(Restrictions.eq("userName", userAuth.getUserName()));
 			criteria.add(Restrictions.eq("password", userAuth.getPassword()));
 
-			user = (UserAuth) criteria.uniqueResult();
+			user = (TUser) criteria.uniqueResult();
 
 		} catch (Exception e) {
 			throw e;

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.gson.Gson;
-import com.obaba.erp.entities.UserAuth;
+import com.obaba.erp.entities.TUser;
 import com.obaba.erp.response.JsonResponse;
 import com.obaba.erp.serviceImpl.AuthServiceImpl;
 import com.obaba.erp.utils.Constants;
@@ -29,8 +29,8 @@ public class UserAuthController {
 
 		int id;
 
-		UserAuth userAuth = new UserAuth();
-		UserAuth user = null;
+		TUser userAuth = new TUser();
+		TUser user = null;
 
 		try {
 			Preconditions.checkArgument(!Strings.isNullOrEmpty(userName), "empty UserName");
@@ -63,10 +63,10 @@ public class UserAuthController {
 
 		int id;
 
-		UserAuth userAuth = null;
+		TUser userAuth = null;
 		try {
 			Preconditions.checkArgument(!Strings.isNullOrEmpty(input), "empty body");
-			userAuth = gson.fromJson(input, UserAuth.class);
+			userAuth = gson.fromJson(input, TUser.class);
 
 			Preconditions.checkArgument(!Strings.isNullOrEmpty(userAuth.userName), "empty UserName");
 			Preconditions.checkArgument(!Strings.isNullOrEmpty(userAuth.password), "empty password");

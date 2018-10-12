@@ -7,7 +7,7 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import com.obaba.erp.entities.UserAuth;
+import com.obaba.erp.entities.TUser;
 
 
 @SpringBootApplication(scanBasePackages = { "com.obaba.erp", "com.obaba.erp.utils",
@@ -15,7 +15,7 @@ import com.obaba.erp.entities.UserAuth;
 		 "com.obaba.erp.entities", "com.obaba.erp.service", "com.obaba.erp.serviceImpl" })
 @ComponentScan(basePackages = "com.obaba.erp")
 
-@EntityScan(basePackageClasses = { UserAuth.class })
+@EntityScan(basePackageClasses = { TUser.class })
 @EnableJpaRepositories("com.obaba.erp")
 public class ObabaErpApplication extends SpringBootServletInitializer {
 

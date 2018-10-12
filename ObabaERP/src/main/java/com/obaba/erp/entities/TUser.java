@@ -17,7 +17,7 @@ import lombok.Data;
 @Entity
 @Table(name = "t_user")
 @Data
-public class UserAuth {
+public class TUser {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,6 +29,9 @@ public class UserAuth {
 
 	@Column(name = "password")
 	public String password;
+	
+	@Column(name = "is_active")
+	public char isActive;
 
 	@CreatedDate
 	@Column(name = "create_date")
@@ -44,8 +47,7 @@ public class UserAuth {
 	@Column(name = "updated_by")
 	public int updatedBy;
 
-	@Column(name = "is_active")
-	public int isActive;
+	
 	
 
 
