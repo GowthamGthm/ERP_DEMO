@@ -11,4 +11,6 @@ public interface IProductCategoryDAO {
 
 	public List<TProducts> getHomeProducts();
 
+	public List<TProducts> getProductByID(int productID);
+
 }

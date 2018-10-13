@@ -12,17 +12,17 @@ import com.obaba.erp.service.IProductCategoryService;
 
 @Service
 public class ProductCategoryServiceImpl implements IProductCategoryService {
-		
+
 	@Autowired
-	IProductCategoryDAO productCategoryDaoImpl ;
+	IProductCategoryDAO productCategoryDaoImpl;
 
 	@Override
 	public List<TProductCategory> getListOfCategories() {
 		List<TProductCategory> productsCategoryList = null;
 		try {
-			productsCategoryList =	productCategoryDaoImpl.getProductCategory();
-			
-		} catch (Exception e) { 
+			productsCategoryList = productCategoryDaoImpl.getProductCategory();
+
+		} catch (Exception e) {
 			throw e;
 		}
 
@@ -30,14 +30,26 @@ public class ProductCategoryServiceImpl implements IProductCategoryService {
 	}
 
 	public List<TProducts> getHomeProducts() {
-		
-		List<TProducts>  products = null;
-		
-		products =productCategoryDaoImpl.getHomeProducts();
-		
-		
-		
+		List<TProducts> products = null;
+		try {
+			products = productCategoryDaoImpl.getHomeProducts();
+		} catch (Exception e) {
+			throw e;
+		}
 		return products;
+	}
+
+	@Override
+	public List<TProducts> getProductsByID(int productID) {
+		List<TProducts> products = null;
+		try {
+
+			products = productCategoryDaoImpl.getProductByID(productID);
+			
+		} catch (Exception e) {
+			throw e;
+		}
+		return null;
 	}
 
 }

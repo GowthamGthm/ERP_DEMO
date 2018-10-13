@@ -30,7 +30,6 @@ public class ProductCategoryDAOImpl implements IProductCategoryDAO {
 	@Autowired
 	SessionFactory sessionFactory;
 	
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<TProductCategory> getProductCategory() {
@@ -71,6 +70,31 @@ public class ProductCategoryDAOImpl implements IProductCategoryDAO {
 					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 					.add(Restrictions.eq("isActive", 'Y'))
 					.add(Restrictions.eq("isHome", 'Y'));
+			products = criteria.list();
+			
+		}catch (Exception e) {
+			throw e ;
+		}finally {
+			session.close();
+		}
+		return products;
+	}
+
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<TProducts> getProductByID(int productID) {
+		Session session = null;
+		List<TProducts> products = null;
+		
+		try {
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			
+			Criteria criteria = session.createCriteria(TProducts.class)
+					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+					.add(Restrictions.eq("isActive", 'Y'))
+					.add(Restrictions.eq("productID", productID));
 			products = criteria.list();
 			
 		}catch (Exception e) {

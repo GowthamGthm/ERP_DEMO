@@ -2,7 +2,6 @@ package com.obaba.erp.response;
 
 import java.util.List;
 
-import com.google.gson.annotations.Expose;
 import com.obaba.erp.entities.TProductCategory;
 import com.obaba.erp.entities.TProducts;
 
@@ -15,9 +14,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class HomePageDataResponse {
 
-	@Expose
+	//@Expose
 	List<TProductCategory> productCategories; 
-	@Expose
+	//@Expose
 	List<TProducts> homeProducts ;
 	
 }

@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import lombok.Data;
 
 @Entity
@@ -22,11 +24,14 @@ public class TUser {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
+	@JsonInclude
 	public int id;
 
+	@JsonInclude
 	@Column(name = "username", unique = true)
 	public String userName;
 
+	@JsonInclude
 	@Column(name = "password")
 	public String password;
 	
