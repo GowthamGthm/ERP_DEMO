@@ -12,23 +12,31 @@ import javax.persistence.Table;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import lombok.Data;
 
 @Entity
 @Table(name = "t_user")
 @Data
-public class UserAuth {
+public class TUser {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
+	@JsonInclude
 	public int id;
 
+	@JsonInclude
 	@Column(name = "username", unique = true)
 	public String userName;
 
+	@JsonInclude
 	@Column(name = "password")
 	public String password;
+	
+	@Column(name = "is_active")
+	public char isActive;
 
 	@CreatedDate
 	@Column(name = "create_date")
@@ -44,8 +52,7 @@ public class UserAuth {
 	@Column(name = "updated_by")
 	public int updatedBy;
 
-	@Column(name = "is_active")
-	public int isActive;
+	
 	
 
 

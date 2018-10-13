@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.google.gson.annotations.Expose;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
@@ -33,8 +33,8 @@ public class TProducts implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "product_id", unique = true, nullable = false)
-	@Expose
-	private Integer productId;
+	
+	private Integer productID;
 
 	/*@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "product_category_id", nullable = false)
@@ -45,68 +45,68 @@ public class TProducts implements java.io.Serializable {
 	private TProductSubCategory tProductSubCategoryByProductSubCategoryId;*/
 	
 	@Column(name = "product_category_id", nullable = true)
-	@Expose
+	
 	private Integer productcategoryID;
 	
 	@Column(name = "product_sub_category_id" , nullable = true)
-	@Expose
+	
 	private Integer productSubCategoryID;
 	
 	@Column(name = "product_product_sku", length = 20)
-	@Expose
+	
 	private String productProductSku;
 	
 	@Column(name = "product_name", length = 100)
-	@Expose
+	
 	private String productName;
 	
 	@Column(name = "product_brand", length = 30)
-	@Expose
+	
 	private String productBrand;
 	
 	@Column(name = "product_color", length = 20)
-	@Expose
+	
 	private String productColor;
 	
 	@Column(name = "product_size", length = 50)
-	@Expose
+	
 	private String productSize;
 	
 	@Column(name = "product_price")
-	@Expose
+	
 	private Integer productPrice;
 	
 	@Column(name = "product_image", length = 100)
-	@Expose
+	
 	private String productImage;
 	
 	@Column(name = "product_quantity")
-	@Expose
+	
 	private Integer productQuantity;
 	
-	//@JsonIgnore
+	@JsonIgnore
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "create_date", length = 19)
 	private Date createDate;
 	
-	//@JsonIgnore
+	@JsonIgnore
 	@Column(name = "created_by")
 	private Integer createdBy;
 	
-	//@JsonIgnore
+	@JsonIgnore
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "update_date", length = 19)
 	private Date updateDate;
 	
-	//@JsonIgnore
+	@JsonIgnore
 	@Column(name = "updated_by")
 	private Integer updatedBy;
 	
-	@Expose
+	
 	@Column(name = "is_active", nullable = true)
 	private char isActive;
 	
-	@Expose
+	
 	@Column(name = "is_home", nullable = true )
 	private char isHome;
 

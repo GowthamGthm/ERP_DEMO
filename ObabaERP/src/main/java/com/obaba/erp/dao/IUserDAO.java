@@ -1,11 +1,11 @@
 package com.obaba.erp.dao;
 
-import com.obaba.erp.entities.UserAuth;
+import com.obaba.erp.entities.TUser;
 
 public interface IUserDAO {
 
-	public int  insertUser(UserAuth userAuth);
+	public int  insertUser(TUser userAuth);
 	
-	public UserAuth checkAuth(UserAuth userAuth);
+	public TUser checkAuth(TUser userAuth);
 	
 }

@@ -14,7 +14,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
-import com.google.gson.annotations.Expose;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
@@ -34,7 +34,7 @@ public class TProductSubCategory implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "sub_category_id", nullable = true)
-	@Expose
+	
 	private Integer subCategoryID;
 	
 	/*@ManyToOne(fetch = FetchType.LAZY)
@@ -42,36 +42,36 @@ public class TProductSubCategory implements java.io.Serializable {
 	private TProductCategory productCategory;*/
 	
 	@Column(name = "category_id" ,  nullable = true)
-	@Expose
+	
 	private Integer categoryID;
 	
-	@Expose
+	
 	@Column(name = "sub_category_name", unique = true, nullable = false)
 	private String subCategoryName;
 	
-	@Expose
+	
 	@Column(name = "sub_category_desc")
 	private String subCategoryDesc;
 	
-	@Expose
+	
 	@Column(name = "image_url")
 	private String imageUrl;
 	
-	//@JsonIgnore
+	@JsonIgnore
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "create_date", length = 19)
 	private Date createDate;
 	
-	//@JsonIgnore
+	@JsonIgnore
 	@Column(name = "created_by")
 	private String createdBy;
 	
-	//@JsonIgnore
+	@JsonIgnore
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "update_date", length = 19)
 	private Date updateDate;
 	
-	//@JsonIgnore
+	@JsonIgnore
 	@Column(name = "updated_by")
 	private String updatedBy;
 	

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.obaba.erp.daoImpl.UserDAOImpl;
-import com.obaba.erp.entities.UserAuth;
+import com.obaba.erp.entities.TUser;
 import com.obaba.erp.service.IAuthService;
 
 
@@ -15,7 +15,7 @@ public class AuthServiceImpl implements IAuthService {
 	UserDAOImpl userDaoImpl;
 
 	@Override
-	public int insertUser(UserAuth userAuth) {
+	public int insertUser(TUser userAuth) {
 
 		int id;
 		try {
@@ -31,10 +31,10 @@ public class AuthServiceImpl implements IAuthService {
 	}
 
 	@Override
-	public UserAuth checkAuth(UserAuth userAuth) {
+	public TUser checkAuth(TUser userAuth) {
 		
 		
-		UserAuth user = null ;
+		TUser user = null ;
 		try {
 
 			user =	 userDaoImpl.checkAuth(userAuth);
