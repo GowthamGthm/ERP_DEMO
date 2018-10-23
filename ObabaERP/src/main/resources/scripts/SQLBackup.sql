@@ -7,31 +7,94 @@
 CREATE DATABASE IF NOT EXISTS `demo` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `demo`;
 
-CREATE TABLE IF NOT EXISTS `admin` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `create_date` datetime DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `update_date` datetime DEFAULT NULL,
-  `username` varchar(255) DEFAULT NULL,
-  `is_active` tinyint(4) DEFAULT '1',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UK_gfn44sntic2k93auag97juyij` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-/*!40000 ALTER TABLE `admin` DISABLE KEYS */;
-/*!40000 ALTER TABLE `admin` ENABLE KEYS */;
-
 CREATE TABLE IF NOT EXISTS `hibernate_sequence` (
   `next_val` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*!40000 ALTER TABLE `hibernate_sequence` DISABLE KEYS */;
 INSERT INTO `hibernate_sequence` (`next_val`) VALUES
-	(1),
-	(1),
-	(1),
-	(1);
+	(6),
+	(6),
+	(6),
+	(6);
 /*!40000 ALTER TABLE `hibernate_sequence` ENABLE KEYS */;
+
+CREATE TABLE IF NOT EXISTS `t_cart` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `userId` int(11) NOT NULL,
+  `productId` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `create_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_by` tinyint(4) DEFAULT '0',
+  `updated_by` tinyint(4) DEFAULT '0',
+  `is_active` varchar(55) DEFAULT 'Y',
+  PRIMARY KEY (`id`),
+  KEY `FK_t_cart_t_user` (`userId`),
+  KEY `FK_t_cart_t_products` (`productId`),
+  CONSTRAINT `FK_t_cart_t_products` FOREIGN KEY (`productId`) REFERENCES `t_products` (`product_id`),
+  CONSTRAINT `FK_t_cart_t_user` FOREIGN KEY (`userId`) REFERENCES `t_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*!40000 ALTER TABLE `t_cart` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_cart` ENABLE KEYS */;
+
+CREATE TABLE IF NOT EXISTS `t_look_up` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `look_up_name` varchar(50) NOT NULL,
+  `look_up_value` varchar(50) NOT NULL,
+  `create_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `look_up_name` (`look_up_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*!40000 ALTER TABLE `t_look_up` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_look_up` ENABLE KEYS */;
+
+CREATE TABLE IF NOT EXISTS `t_orders` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `total_price` int(11) NOT NULL,
+  `item_count` int(11) DEFAULT NULL,
+  `free_shipping` char(1) DEFAULT 'N',
+  `payment_type` varchar(50) DEFAULT NULL,
+  `order_status` varchar(55) DEFAULT NULL,
+  `create_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_by` int(11) DEFAULT '0',
+  `updated_by` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `FK_t_orders_t_user` (`user_id`),
+  CONSTRAINT `FK_t_orders_t_user` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*!40000 ALTER TABLE `t_orders` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_orders` ENABLE KEYS */;
+
+CREATE TABLE IF NOT EXISTS `t_order_details` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `item_price` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `free_shipping` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'N',
+  `is_delivered` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'N',
+  `created_date` datetime DEFAULT NULL,
+  `update_date` datetime DEFAULT NULL,
+  `created_by` int(11) DEFAULT '0',
+  `updated_by` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `FK_t_order_details_t_products` (`product_id`),
+  KEY `FK_t_order_details_t_orders` (`order_id`),
+  CONSTRAINT `FK_t_order_details_t_orders` FOREIGN KEY (`order_id`) REFERENCES `t_orders` (`id`),
+  CONSTRAINT `FK_t_order_details_t_products` FOREIGN KEY (`product_id`) REFERENCES `t_products` (`product_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*!40000 ALTER TABLE `t_order_details` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_order_details` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `t_products` (
   `product_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -51,6 +114,8 @@ CREATE TABLE IF NOT EXISTS `t_products` (
   `updated_by` int(11) DEFAULT '0',
   `is_active` char(1) NOT NULL DEFAULT 'Y',
   `is_home` char(1) NOT NULL DEFAULT 'N',
+  `discount` float DEFAULT NULL,
+  `selling_price` int(11) DEFAULT NULL,
   PRIMARY KEY (`product_id`),
   KEY `FK_t_products_t_product_sub_category` (`product_sub_category_id`),
   KEY `p_c_id` (`product_category_id`),
@@ -59,16 +124,16 @@ CREATE TABLE IF NOT EXISTS `t_products` (
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 /*!40000 ALTER TABLE `t_products` DISABLE KEYS */;
-INSERT INTO `t_products` (`product_id`, `product_category_id`, `product_sub_category_id`, `product_product_sku`, `product_name`, `product_brand`, `product_color`, `product_size`, `product_price`, `product_image`, `product_quantity`, `create_date`, `created_by`, `update_date`, `updated_by`, `is_active`, `is_home`) VALUES
-	(1, 1, 1, 'FRD00F1', 'Sangria Collar 3/4Th Sleeves Embroidered Flared Anarkali', NULL, NULL, NULL, 1000, 'dummyURL', 10, '2018-10-10 15:45:01', 0, '2018-10-10 15:46:40', 0, 'Y', 'N'),
-	(2, 2, 2, 'FRD00F3', 'Aurelia Navy Blue Printed Cotton Kurta', NULL, NULL, NULL, 2000, 'dummyURL', 20, '2018-10-10 15:45:00', 0, '2018-10-10 15:46:41', 0, 'Y', 'N'),
-	(3, 2, 3, 'RO100', 'Biba White Printed Viscose Kurta', NULL, NULL, NULL, 3000, 'dummyURL', 30, '2018-10-10 15:44:59', 0, '2018-10-10 15:46:43', 0, 'Y', 'N'),
-	(4, 3, 4, 'HND0E1', 'Aurelia Yellow Printed Cotton Kurta', NULL, NULL, NULL, 4000, 'dummyURL', 40, '2018-10-10 15:44:58', 0, '2018-10-10 15:46:45', 0, 'Y', 'N'),
-	(5, 4, 5, 'MST0G1', 'Biba Blue Printed Kurta', NULL, NULL, NULL, 5000, 'dummyURL', 45, '2018-10-10 15:44:56', 0, '2018-10-10 15:46:47', 0, 'Y', 'N'),
-	(6, 5, 6, 'NS0A1', 'Aurelia Navy Blue Printed Cotton Kurta', NULL, NULL, NULL, 6000, 'dummyURL', 15, '2018-10-10 15:44:55', 0, '2018-10-10 15:46:49', 0, 'Y', 'N'),
-	(7, 3, 1, 'NS2S1', 'Sangria Round Neck 3/4Th Sleeves Anarkali', NULL, NULL, NULL, 7000, 'dummyURL', 20, '2018-10-10 15:44:54', 0, '2018-10-10 15:46:50', 0, 'Y', 'N'),
-	(11, NULL, NULL, 'Home001', 'Home Product 1', NULL, NULL, NULL, 5000, 'dummyURL', 100, '2018-10-10 15:44:23', 0, '2018-10-10 15:47:03', 0, 'Y', 'Y'),
-	(12, NULL, NULL, 'Home002', 'Home Product 2 ', NULL, NULL, NULL, 7000, 'dummyURL', 50, '2018-10-10 15:48:16', 0, '2018-10-10 15:48:36', 0, 'Y', 'Y');
+INSERT INTO `t_products` (`product_id`, `product_category_id`, `product_sub_category_id`, `product_product_sku`, `product_name`, `product_brand`, `product_color`, `product_size`, `product_price`, `product_image`, `product_quantity`, `create_date`, `created_by`, `update_date`, `updated_by`, `is_active`, `is_home`, `discount`, `selling_price`) VALUES
+	(1, 1, 1, 'FRD00F1', 'Sangria Collar 3/4Th Sleeves Embroidered Flared Anarkali', NULL, NULL, NULL, 1000, 'dummyURL', 10, '2018-10-10 15:45:01', 0, '2018-10-10 15:46:40', 0, 'Y', 'N', NULL, NULL),
+	(2, 2, 2, 'FRD00F3', 'Aurelia Navy Blue Printed Cotton Kurta', NULL, NULL, NULL, 2000, 'dummyURL', 20, '2018-10-10 15:45:00', 0, '2018-10-10 15:46:41', 0, 'Y', 'N', NULL, NULL),
+	(3, 2, 3, 'RO100', 'Biba White Printed Viscose Kurta', NULL, NULL, NULL, 3000, 'dummyURL', 30, '2018-10-10 15:44:59', 0, '2018-10-10 15:46:43', 0, 'Y', 'N', NULL, NULL),
+	(4, 3, 4, 'HND0E1', 'Aurelia Yellow Printed Cotton Kurta', NULL, NULL, NULL, 4000, 'dummyURL', 40, '2018-10-10 15:44:58', 0, '2018-10-10 15:46:45', 0, 'Y', 'N', NULL, NULL),
+	(5, 4, 5, 'MST0G1', 'Biba Blue Printed Kurta', NULL, NULL, NULL, 5000, 'dummyURL', 45, '2018-10-10 15:44:56', 0, '2018-10-10 15:46:47', 0, 'Y', 'N', NULL, NULL),
+	(6, 5, 6, 'NS0A1', 'Aurelia Navy Blue Printed Cotton Kurta', NULL, NULL, NULL, 6000, 'dummyURL', 15, '2018-10-10 15:44:55', 0, '2018-10-10 15:46:49', 0, 'Y', 'N', NULL, NULL),
+	(7, 3, 1, 'NS2S1', 'Sangria Round Neck 3/4Th Sleeves Anarkali', NULL, NULL, NULL, 7000, 'dummyURL', 20, '2018-10-10 15:44:54', 0, '2018-10-10 15:46:50', 0, 'Y', 'N', NULL, NULL),
+	(11, NULL, NULL, 'Home001', 'Home Product 1', NULL, NULL, NULL, 5000, 'dummyURL', 100, '2018-10-10 15:44:23', 0, '2018-10-10 15:47:03', 0, 'Y', 'Y', NULL, NULL),
+	(12, NULL, NULL, 'Home002', 'Home Product 2 ', NULL, NULL, NULL, 7000, 'dummyURL', 50, '2018-10-10 15:48:16', 0, '2018-10-10 15:48:36', 0, 'Y', 'Y', NULL, NULL);
 /*!40000 ALTER TABLE `t_products` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `t_product_category` (
@@ -119,6 +184,47 @@ INSERT INTO `t_product_sub_category` (`sub_category_id`, `category_id`, `sub_cat
 	(5, 4, 'Nested Tables', NULL, 'dummy', '2018-10-03 18:59:36', '0', '2018-10-03 19:02:45', '0'),
 	(6, 5, 'Designer Dine Tables', NULL, 'dummy', '2018-10-03 18:59:48', '0', '2018-10-03 19:02:47', '0');
 /*!40000 ALTER TABLE `t_product_sub_category` ENABLE KEYS */;
+
+CREATE TABLE IF NOT EXISTS `t_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `is_active` char(1) NOT NULL DEFAULT 'Y',
+  `create_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `update_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_by` int(11) DEFAULT '0',
+  `updated_by` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_gfn44sntic2k93auag97juyij` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+/*!40000 ALTER TABLE `t_user` DISABLE KEYS */;
+INSERT INTO `t_user` (`id`, `username`, `password`, `is_active`, `create_date`, `update_date`, `created_by`, `updated_by`) VALUES
+	(1, 'gthm', 'gthm', 'Y', '2018-10-12 12:57:31', '2018-10-12 12:57:32', 0, 0),
+	(2, 'abcd', 'abcd', 'Y', '2018-10-12 12:57:47', '2018-10-12 12:57:47', 0, 0),
+	(3, 'defg@gmail.com', 'defgqweeee', '\0', NULL, NULL, 0, 0),
+	(4, 'deaaag@gmail.com', 'defgqweeee', '\0', NULL, NULL, 0, 0),
+	(5, 'deaaagaa@gmail.com', 'defgqweeee', '\0', NULL, NULL, 0, 0);
+/*!40000 ALTER TABLE `t_user` ENABLE KEYS */;
+
+CREATE TABLE IF NOT EXISTS `t_wishlist` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `create_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_by` tinyint(4) DEFAULT '0',
+  `updated_by` tinyint(4) DEFAULT '0',
+  `is_active` char(1) DEFAULT 'Y',
+  PRIMARY KEY (`id`),
+  KEY `FK_t_wishlist_t_user` (`user_id`),
+  KEY `FK_t_wishlist_t_products` (`product_id`),
+  CONSTRAINT `FK_t_wishlist_t_products` FOREIGN KEY (`product_id`) REFERENCES `t_products` (`product_id`),
+  CONSTRAINT `FK_t_wishlist_t_user` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*!40000 ALTER TABLE `t_wishlist` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_wishlist` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

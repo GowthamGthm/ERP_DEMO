@@ -7,7 +7,10 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -66,5 +69,70 @@ public class ProductsController {
 			return ResponseEntity.status(HttpStatus.OK).body(tProducts);
 		}
 	}
+	
+	
+	
+	@ResponseBody
+	@GetMapping(value = Constants.API_WISH_LIST)
+	public Object getWishListByUser(@RequestParam int productID)  {
+		List<TProducts> tProducts = null;
+
+		try {
+			Preconditions.checkArgument(!(productID==0) , "Invalid productID");
+			tProducts = productCategoryService.getProductsByID(productID);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+		}
+		
+		if(tProducts == null ) {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(tProducts);
+		}else {
+			return ResponseEntity.status(HttpStatus.OK).body(tProducts);
+		}
+	}
+	
+	@ResponseBody
+	@PostMapping(value = Constants.API_WISH_LIST)
+	public Object addWishListByUser(@RequestBody int productID)  {
+		List<TProducts> tProducts = null;
+
+		try {
+			Preconditions.checkArgument(!(productID==0) , "Invalid productID");
+			tProducts = productCategoryService.getProductsByID(productID);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+		}
+		
+		if(tProducts == null ) {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(tProducts);
+		}else {
+			return ResponseEntity.status(HttpStatus.OK).body(tProducts);
+		}
+	}
+	
+	@ResponseBody
+	@DeleteMapping(value = Constants.API_WISH_LIST)
+	public Object deleteWishListByUser(@RequestBody int productID)  {
+		List<TProducts> tProducts = null;
+
+		try {
+			Preconditions.checkArgument(!(productID==0) , "Invalid productID");
+			tProducts = productCategoryService.getProductsByID(productID);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+		}
+		
+		if(tProducts == null ) {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(tProducts);
+		}else {
+			return ResponseEntity.status(HttpStatus.OK).body(tProducts);
+		}
+	}	
 	
 }
