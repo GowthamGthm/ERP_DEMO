@@ -83,7 +83,7 @@ public class ProductCategoryDAOImpl implements IProductCategoryDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<TProducts> getProductByID(int productID) {
+	public List<TProducts> getProductsByID(int productID) {
 		Session session = null;
 		List<TProducts> products = null;
 		
@@ -104,5 +104,33 @@ public class ProductCategoryDAOImpl implements IProductCategoryDAO {
 		}
 		return products;
 	}
+	
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public TProducts getProductByID(int productID) {
+		Session session = null;
+		TProducts product = null;
+		
+		try {
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+			
+			Criteria criteria = session.createCriteria(TProducts.class)
+					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+					.add(Restrictions.eq("isActive", 'Y'))
+					.add(Restrictions.eq("productID", productID));
+			product = (TProducts) criteria.uniqueResult();
+			
+		}catch (Exception e) {
+			throw e ;
+		}finally {
+			session.close();
+		}
+		return product;
+	}
+	
+	
+	
 
 }

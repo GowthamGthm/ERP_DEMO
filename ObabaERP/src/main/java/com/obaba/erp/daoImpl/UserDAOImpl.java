@@ -73,7 +73,30 @@ public class UserDAOImpl implements IUserDAO {
 		}
 
 		return user;
+	}
+	
+	@Override
+	public TUser getUserbyID(int userID) {
 
+		Session session = null;
+
+		TUser user = null;
+		try {
+
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+
+			Criteria criteria = session.createCriteria(TUser.class);
+			criteria.add(Restrictions.eq("id", userID));
+			user = (TUser) criteria.uniqueResult();
+
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			session.close();
+		}
+
+		return user;
 	}
 
 }

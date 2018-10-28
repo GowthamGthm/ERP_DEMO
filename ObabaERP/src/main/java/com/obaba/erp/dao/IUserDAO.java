@@ -8,4 +8,6 @@ public interface IUserDAO {
 	
 	public TUser checkAuth(TUser userAuth);
 	
+	public TUser getUserbyID(int userID);
+	
 }

@@ -11,6 +11,8 @@ public interface IProductCategoryDAO {
 
 	public List<TProducts> getHomeProducts();
 
-	public List<TProducts> getProductByID(int productID);
+	public List<TProducts> getProductsByID(int productID);
+	
+	public TProducts getProductByID(int productID);
 
 }
