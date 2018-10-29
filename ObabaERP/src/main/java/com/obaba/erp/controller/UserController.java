@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -22,7 +23,8 @@ import com.obaba.erp.serviceImpl.AuthServiceImpl;
 import com.obaba.erp.utils.Constants;
 
 @Controller
-public class UserAuthController {
+@RequestMapping(value="/user")
+public class UserController {
 
 	@Autowired
 	AuthServiceImpl authService;
@@ -105,4 +107,17 @@ public class UserAuthController {
 		return "working fine ";
 	}
 
+	@PostMapping
+	public void addWishListToUser(@RequestBody String input ) {
+		try {
+			
+			
+			
+			
+		}catch (Exception e) {
+
+		}
+	}
+	
+	
 }

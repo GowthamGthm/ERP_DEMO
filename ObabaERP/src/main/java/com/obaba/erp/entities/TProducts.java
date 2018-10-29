@@ -33,81 +33,72 @@ public class TProducts implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "product_id", unique = true, nullable = false)
-	
 	private Integer productID;
 
-	/*@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "product_category_id", nullable = false)
-	private TProductSubCategory tProductSubCategoryByProductCategoryId;
+	/*
+	 * @ManyToOne(fetch = FetchType.EAGER)
+	 * 
+	 * @JoinColumn(name = "product_category_id", nullable = false) private
+	 * TProductSubCategory tProductSubCategoryByProductCategoryId;
+	 * 
+	 * @ManyToOne(fetch = FetchType.EAGER)
+	 * 
+	 * @JoinColumn(name = "product_sub_category_id", nullable = false) private
+	 * TProductSubCategory tProductSubCategoryByProductSubCategoryId;
+	 */
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "product_sub_category_id", nullable = false)
-	private TProductSubCategory tProductSubCategoryByProductSubCategoryId;*/
-	
 	@Column(name = "product_category_id", nullable = true)
-	
 	private Integer productcategoryID;
-	
-	@Column(name = "product_sub_category_id" , nullable = true)
-	
+
+	@Column(name = "product_sub_category_id", nullable = true)
 	private Integer productSubCategoryID;
-	
+
 	@Column(name = "product_product_sku", length = 20)
-	
 	private String productProductSku;
-	
+
 	@Column(name = "product_name", length = 100)
-	
 	private String productName;
-	
+
 	@Column(name = "product_brand", length = 30)
-	
 	private String productBrand;
-	
+
 	@Column(name = "product_color", length = 20)
-	
 	private String productColor;
-	
+
 	@Column(name = "product_size", length = 50)
-	
 	private String productSize;
-	
+
 	@Column(name = "product_price")
-	
 	private Integer productPrice;
-	
+
 	@Column(name = "product_image", length = 100)
-	
 	private String productImage;
-	
+
 	@Column(name = "product_quantity")
-	
 	private Integer productQuantity;
-	
+
 	@JsonIgnore
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "create_date", length = 19)
 	private Date createDate;
-	
+
 	@JsonIgnore
 	@Column(name = "created_by")
 	private Integer createdBy;
-	
+
 	@JsonIgnore
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "update_date", length = 19)
 	private Date updateDate;
-	
+
 	@JsonIgnore
 	@Column(name = "updated_by")
 	private Integer updatedBy;
-	
-	
+
 	@Column(name = "is_active", nullable = true)
 	private char isActive;
-	
-	
-	@Column(name = "is_home", nullable = true )
+
+	@Column(name = "is_home", nullable = true)
 	private char isHome;
 
 }
