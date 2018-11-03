@@ -34,14 +34,20 @@ public class TWishlist implements java.io.Serializable {
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	/*@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "product_id", nullable = false)
 	private TProducts TProducts;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id", nullable = false)
-	private TUser TUser;
-
+	private TUser TUser;*/
+	
+	@Column(name = "user_id", nullable = true)
+	private Integer userId;
+	
+	@Column(name = "product_id", nullable = true)
+	private Integer productId;
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "create_date", length = 19)
 	private Date createDate;

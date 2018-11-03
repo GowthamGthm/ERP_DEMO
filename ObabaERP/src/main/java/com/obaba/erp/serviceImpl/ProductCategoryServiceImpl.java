@@ -23,7 +23,7 @@ public class ProductCategoryServiceImpl implements IProductCategoryService {
 
 	@Autowired
 	IUserDAO userDao;
-	
+
 	@Autowired
 	IWishListDAO wishListDAO;
 
@@ -67,28 +67,42 @@ public class ProductCategoryServiceImpl implements IProductCategoryService {
 	public int addWishList(WishListRequest wishList) {
 		TProducts product = null;
 		TUser user = null;
-		int id =0 ;
+		int id = 0;
 
 		try {
 
 			product = productCategoryDaoImpl.getProductByID(wishList.getProductId());
 			user = userDao.getUserbyID(wishList.getUserId());
-			
+
 			if (product != null && user != null) {
-				
+
 				TWishlist tWishlist = new TWishlist();
-				tWishlist.setTUser(user);
-				tWishlist.setTProducts(product);
-				
-                   id =     wishListDAO.insertWish(tWishlist);
+				tWishlist.setUserId(user.getId());
+				tWishlist.setProductId(product.getProductID());
+
+				id = wishListDAO.insertWish(tWishlist);
 			}
 
 		} catch (Exception e) {
 			throw e;
 		}
-		
-		return id ;
 
+		return id;
+
+	}
+
+	@Override
+	public TUser getWishListByUser(int userId) {
+
+		try {
+
+			wishListDAO.getWishListByUser(userId);
+			
+			
+		} catch (Exception e) {
+			throw e;
+		}
+		return null;
 	}
 
 }

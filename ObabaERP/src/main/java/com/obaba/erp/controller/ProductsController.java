@@ -21,6 +21,8 @@ import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.obaba.erp.entities.TProductCategory;
 import com.obaba.erp.entities.TProducts;
+import com.obaba.erp.entities.TUser;
+import com.obaba.erp.entities.TWishlist;
 import com.obaba.erp.request.WishListRequest;
 import com.obaba.erp.response.HomePageDataResponse;
 import com.obaba.erp.service.IProductCategoryService;
@@ -79,22 +81,22 @@ public class ProductsController {
 	
 	@ResponseBody
 	@GetMapping(value = Constants.API_WISH_LIST)
-	public Object getWishListByUser(@RequestParam int productID)  {
-		List<TProducts> tProducts = null;
+	public Object getWishListByUser(@RequestParam int userId)  {
+		TUser tuser = null;
 
 		try {
-			Preconditions.checkArgument(!(productID==0) , "Invalid productID");
-			tProducts = productCategoryService.getProductsByID(productID);
+			Preconditions.checkArgument(!(userId==0) , "Invalid productID");
+			tuser = productCategoryService.getWishListByUser(userId);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
 		}
 		
-		if(tProducts == null ) {
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(tProducts);
+		if(tuser == null ) {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(tuser);
 		}else {
-			return ResponseEntity.status(HttpStatus.OK).body(tProducts);
+			return ResponseEntity.status(HttpStatus.OK).body(tuser);
 		}
 	}
 	

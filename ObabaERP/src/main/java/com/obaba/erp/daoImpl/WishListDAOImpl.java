@@ -1,5 +1,7 @@
 package com.obaba.erp.daoImpl;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.hibernate.Criteria;
@@ -42,6 +44,29 @@ public class WishListDAOImpl implements IWishListDAO {
 		}
 		return id;
 
+	}
+
+	@Override
+	public TUser getWishListByUser(int userId) {
+
+		Session session = null;
+		TUser user = null;
+
+		try {
+
+			session = sessionFactory.openSession();
+			session.beginTransaction();
+
+			Criteria criteria = session.createCriteria(TUser.class).add(Restrictions.eq("id", userId));
+
+			user = (TUser) criteria.list();
+
+		} catch (Exception e) {
+			throw e;
+
+		}
+
+		return user;
 	}
 
 }
