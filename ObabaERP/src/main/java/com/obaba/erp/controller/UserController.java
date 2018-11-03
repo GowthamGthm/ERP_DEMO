@@ -26,6 +26,8 @@ import com.obaba.erp.utils.Constants;
 @RequestMapping(value="/user")
 public class UserController {
 
+//test
+
 	@Autowired
 	AuthServiceImpl authService;
 
