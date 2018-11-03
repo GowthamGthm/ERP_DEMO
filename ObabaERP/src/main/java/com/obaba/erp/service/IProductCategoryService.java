@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.obaba.erp.entities.TProductCategory;
 import com.obaba.erp.entities.TProducts;
+import com.obaba.erp.entities.TUser;
+import com.obaba.erp.entities.TWishlist;
 import com.obaba.erp.request.WishListRequest;
 
 public interface IProductCategoryService {
@@ -15,5 +17,7 @@ public interface IProductCategoryService {
 	public List<TProducts> getProductsByID(int productID);
 	
 	public int addWishList(WishListRequest wishList);
+
+	public TUser getWishListByUser(int userId);
 
 }
