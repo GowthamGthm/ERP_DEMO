@@ -72,7 +72,6 @@ public class TProductSubCategory implements java.io.Serializable {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-
 	@Column(name = "sub_category_id", unique = true, nullable = false)
 	public Integer getSubCategoryId() {
 		return this.subCategoryId;
@@ -81,7 +80,6 @@ public class TProductSubCategory implements java.io.Serializable {
 	public void setSubCategoryId(Integer subCategoryId) {
 		this.subCategoryId = subCategoryId;
 	}
-
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id", nullable = false)
@@ -167,8 +165,6 @@ public class TProductSubCategory implements java.io.Serializable {
 		this.imageUrl = imageUrl;
 	}
 	
-	
-	//@JsonManagedReference
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "TProductSubCategory")
 	@Fetch(FetchMode.SELECT)
 	public Set<TProducts> getTProductses() {

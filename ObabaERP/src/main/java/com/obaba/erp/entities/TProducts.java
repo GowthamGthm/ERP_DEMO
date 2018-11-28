@@ -281,7 +281,6 @@ public class TProducts implements java.io.Serializable {
 	}
 	
 	@Transient
-	//@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "TProducts")
 	public Set<TWishlist> getTWishlists() {
 		return this.TWishlists;
@@ -292,7 +291,6 @@ public class TProducts implements java.io.Serializable {
 	}
 
 	@Transient
-	//@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "TProducts")
 	public Set<TOrderDetails> getTOrderDetailses() {
 		return this.TOrderDetailses;

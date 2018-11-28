@@ -39,7 +39,6 @@ public class TProductCategory implements java.io.Serializable {
 	private Integer createdBy;
 	private Date updateDate;
 	private Integer updatedBy;
-	//private Set<TProducts> TProductses = new HashSet<TProducts>(0);
 	private Set<TProductSubCategory> TProductSubCategories = new HashSet<TProductSubCategory>(0);
 
 	public TProductCategory() {
@@ -51,14 +50,13 @@ public class TProductCategory implements java.io.Serializable {
 
 	public TProductCategory(String categoryName, String categoryDesc, Date createDate, Integer createdBy,
 			Date updateDate, Integer updatedBy, 
-			Set<TProductSubCategory> TProductSubCategories) {//Set<TProducts> TProductses,
+			Set<TProductSubCategory> TProductSubCategories) {
 		this.categoryName = categoryName;
 		this.categoryDesc = categoryDesc;
 		this.createDate = createDate;
 		this.createdBy = createdBy;
 		this.updateDate = updateDate;
 		this.updatedBy = updatedBy;
-		//this.TProductses = TProductses;
 		this.TProductSubCategories = TProductSubCategories;
 	}
 
@@ -129,18 +127,6 @@ public class TProductCategory implements java.io.Serializable {
 		this.updatedBy = updatedBy;
 	}
 
-	/*@JsonIgnore
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "TProductCategory")
-	public Set<TProducts> getTProductses() {
-		return this.TProductses;
-	}
-
-	public void setTProductses(Set<TProducts> TProductses) {
-		this.TProductses = TProductses;
-	}
-	*/
-
-	//@JsonManagedReference
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "TProductCategory")
 	@Fetch (FetchMode.SELECT)
 	public Set<TProductSubCategory> getTProductSubCategories() {
