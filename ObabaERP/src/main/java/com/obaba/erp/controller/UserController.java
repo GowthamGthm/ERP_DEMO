@@ -39,7 +39,7 @@ public class UserController {
 			Preconditions.checkArgument(!Strings.isNullOrEmpty(userName), "empty UserName");
 			Preconditions.checkArgument(!Strings.isNullOrEmpty(password), "empty password");
 
-			userAuth.setUserName(userName);
+			userAuth.setUsername(userName);
 			userAuth.setPassword(password);
 			user = authService.checkAuth(userAuth);
 
@@ -72,10 +72,10 @@ public class UserController {
 			Preconditions.checkArgument(!Strings.isNullOrEmpty(input), "empty body");
 			userAuth = mapper.readValue(input,TUser.class);
 
-			Preconditions.checkArgument(!Strings.isNullOrEmpty(userAuth.userName), "empty UserName");
-			Preconditions.checkArgument(!Strings.isNullOrEmpty(userAuth.password), "empty password");
+			Preconditions.checkArgument(!Strings.isNullOrEmpty(userAuth.getUsername()), "empty UserName");
+			Preconditions.checkArgument(!Strings.isNullOrEmpty(userAuth.getPassword()), "empty password");
 
-			boolean validEmail = EmailValidator.getInstance().isValid(userAuth.userName);
+			boolean validEmail = EmailValidator.getInstance().isValid(userAuth.getUsername());
 
 			if (!validEmail)
 				throw new IllegalArgumentException("invalid email");

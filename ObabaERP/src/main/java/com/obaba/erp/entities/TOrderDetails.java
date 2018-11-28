@@ -1,5 +1,5 @@
 package com.obaba.erp.entities;
-// Generated 24 Oct, 2018 12:07:49 AM by Hibernate Tools 5.2.10.Final
+// Generated 25 Nov, 2018 1:41:19 AM by Hibernate Tools 5.1.7.Final
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -21,49 +21,174 @@ import javax.persistence.TemporalType;
 @Table(name = "t_order_details", catalog = "demo")
 public class TOrderDetails implements java.io.Serializable {
 
+	private Integer id;
+	private TOrders TOrders;
+	private TProducts TProducts;
+	private String name;
+	private int itemPrice;
+	private int quantity;
+	private String description;
+	private char freeShipping;
+	private char isDelivered;
+	private Date createdDate;
+	private Date updateDate;
+	private Integer createdBy;
+	private Integer updatedBy;
+
+	public TOrderDetails() {
+	}
+
+	public TOrderDetails(TOrders TOrders, TProducts TProducts, String name, int itemPrice, int quantity,
+			String description, char freeShipping, char isDelivered) {
+		this.TOrders = TOrders;
+		this.TProducts = TProducts;
+		this.name = name;
+		this.itemPrice = itemPrice;
+		this.quantity = quantity;
+		this.description = description;
+		this.freeShipping = freeShipping;
+		this.isDelivered = isDelivered;
+	}
+
+	public TOrderDetails(TOrders TOrders, TProducts TProducts, String name, int itemPrice, int quantity,
+			String description, char freeShipping, char isDelivered, Date createdDate, Date updateDate,
+			Integer createdBy, Integer updatedBy) {
+		this.TOrders = TOrders;
+		this.TProducts = TProducts;
+		this.name = name;
+		this.itemPrice = itemPrice;
+		this.quantity = quantity;
+		this.description = description;
+		this.freeShipping = freeShipping;
+		this.isDelivered = isDelivered;
+		this.createdDate = createdDate;
+		this.updateDate = updateDate;
+		this.createdBy = createdBy;
+		this.updatedBy = updatedBy;
+	}
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
+
 	@Column(name = "id", unique = true, nullable = false)
-	private Integer id;
-	
+	public Integer getId() {
+		return this.id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "order_id", nullable = false)
-	private TOrders TOrders;
+	public TOrders getTOrders() {
+		return null;
+	}
+
+	public void setTOrders(TOrders TOrders) {
+		this.TOrders = TOrders;
+	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "product_id", nullable = false)
-	private TProducts TProducts;
+	public TProducts getTProducts() {
+		return null;
+	}
+
+	public void setTProducts(TProducts TProducts) {
+		this.TProducts = TProducts;
+	}
 
 	@Column(name = "name", nullable = false)
-	private String name;
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	@Column(name = "item_price", nullable = false)
-	private int itemPrice;
+	public int getItemPrice() {
+		return this.itemPrice;
+	}
+
+	public void setItemPrice(int itemPrice) {
+		this.itemPrice = itemPrice;
+	}
 
 	@Column(name = "quantity", nullable = false)
-	private int quantity;
-	
+	public int getQuantity() {
+		return this.quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
 	@Column(name = "description", nullable = false)
-	private String description;
-	
+	public String getDescription() {
+		return this.description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	@Column(name = "free_shipping", nullable = false, length = 1)
-	private char freeShipping;
+	public char getFreeShipping() {
+		return this.freeShipping;
+	}
+
+	public void setFreeShipping(char freeShipping) {
+		this.freeShipping = freeShipping;
+	}
 
 	@Column(name = "is_delivered", nullable = false, length = 1)
-	private char isDelivered;
+	public char getIsDelivered() {
+		return this.isDelivered;
+	}
+
+	public void setIsDelivered(char isDelivered) {
+		this.isDelivered = isDelivered;
+	}
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_date", length = 19)
-	private Date createdDate;
+	public Date getCreatedDate() {
+		return this.createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "update_date", length = 19)
-	private Date updateDate;
+	public Date getUpdateDate() {
+		return this.updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
 
 	@Column(name = "created_by")
-	private Integer createdBy;
+	public Integer getCreatedBy() {
+		return this.createdBy;
+	}
+
+	public void setCreatedBy(Integer createdBy) {
+		this.createdBy = createdBy;
+	}
 
 	@Column(name = "updated_by")
-	private Integer updatedBy;
+	public Integer getUpdatedBy() {
+		return this.updatedBy;
+	}
+
+	public void setUpdatedBy(Integer updatedBy) {
+		this.updatedBy = updatedBy;
+	}
 
 }

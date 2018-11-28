@@ -29,7 +29,7 @@ public class UserDAOImpl implements IUserDAO {
 			session.beginTransaction();
 
 			Criteria criteria = session.createCriteria(TUser.class);
-			criteria.add(Restrictions.eq("userName", userAuth.getUserName()));
+			criteria.add(Restrictions.eq("userName", userAuth.getUsername()));
 			TUser auth = (TUser) criteria.uniqueResult();
 
 			if (auth == null) {
@@ -61,7 +61,7 @@ public class UserDAOImpl implements IUserDAO {
 			session.beginTransaction();
 
 			Criteria criteria = session.createCriteria(TUser.class);
-			criteria.add(Restrictions.eq("userName", userAuth.getUserName()));
+			criteria.add(Restrictions.eq("userName", userAuth.getUsername()));
 			criteria.add(Restrictions.eq("password", userAuth.getPassword()));
 
 			user = (TUser) criteria.uniqueResult();
