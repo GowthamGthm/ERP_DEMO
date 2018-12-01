@@ -99,7 +99,7 @@ public class ProductsController {
 
 		List<UploadFileResponse> uploadFilesList = null;
 		ObjectMapper mapper = new ObjectMapper();
-		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);		
+		//  mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);		
 		
 		int id ;
 		try {

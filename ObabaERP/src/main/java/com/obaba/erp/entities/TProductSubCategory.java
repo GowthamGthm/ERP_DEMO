@@ -34,8 +34,11 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Table(name = "t_product_sub_category", catalog = "demo", uniqueConstraints = @UniqueConstraint(columnNames = "sub_category_name"))
 public class TProductSubCategory implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer subCategoryId;
-	@JsonIgnore
 	private TProductCategory TProductCategory;
 	private String subCategoryName;
 	private String subCategoryDesc;
@@ -50,15 +53,15 @@ public class TProductSubCategory implements java.io.Serializable {
 	public TProductSubCategory() {
 	}
 
-	public TProductSubCategory(TProductCategory TProductCategory, String subCategoryName) {
-		this.TProductCategory = TProductCategory;
+	public TProductSubCategory(TProductCategory tProductCategory, String subCategoryName) {
+		this.TProductCategory = tProductCategory;
 		this.subCategoryName = subCategoryName;
 	}
 
-	public TProductSubCategory(TProductCategory TProductCategory, String subCategoryName, String subCategoryDesc,
+	public TProductSubCategory(TProductCategory tProductCategory, String subCategoryName, String subCategoryDesc,
 			String bannerImageUrl, Date createDate, String createdBy, Date updateDate, String updatedBy,
 			String imageUrl, Set<TProducts> TProductses) {
-		this.TProductCategory = TProductCategory;
+		this.TProductCategory = tProductCategory;
 		this.subCategoryName = subCategoryName;
 		this.subCategoryDesc = subCategoryDesc;
 		this.bannerImageUrl = bannerImageUrl;
@@ -87,8 +90,8 @@ public class TProductSubCategory implements java.io.Serializable {
 		return null;
 	}
 
-	public void setTProductCategory(TProductCategory TProductCategory) {
-		this.TProductCategory = TProductCategory;
+	public void setTProductCategory(TProductCategory tProductCategory) {
+		this.TProductCategory = tProductCategory;
 	}
 
 	@Column(name = "sub_category_name", unique = true, nullable = false)
